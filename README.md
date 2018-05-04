@@ -245,16 +245,37 @@ subreads to polished isoforms; timings are system dependent:
     polished.bam  polished.bam.pbi  polished.hq.fasta.gz  polished.hq.fastq.gz  polished.lq.fasta.gz  polished.lq.fastq.gz  polished.transcriptset.xml
 
 ## FAQ
-### BAM tags explained
-Following BAM tags are being used:
+### Why IsoSeq3 and not the established IsoSeq1 or IsoSeq2?
+The ever-increasing throughput of the Sequel system gave rise to the need for a
+scalable software solution that can handle millions of CCS reads, while
+maintaining sensitivity and accuracy. Internal benchmarks have shown that
+*IsoSeq3* is orders of magnitude faster than currently employed solutions and
+[SQUANTI](https://bitbucket.org/ConesaLab/sqanti) attributes *IsoSeq3* a higher
+number of perfectly annotated isoforms. Additional benefit, single linux binary
+that requires no dependencies.
 
- - `ib` Barcode summary: triplets delimited by semicolons, each triplet contains two barcode indices and the ZMW counts, delimited by comma. Example: `0,1,20;0,3,5`
- - `im` Number of ZMWs associated with this isoform
- - `is` ZMW names associated with this isoform
- - `iz` Maximum number of subreads used for polishing
- - `rq` Predicted accuracy for polished isoform
+### Why is the number of transcripts much lower with IsoSeq3?
+Even though we also observe fewer polished transcripts with *IsoSeq3*, the
+overall quality is much higher. Most of the low-quality transcripts are lost in the
+demultiplexing step. *Isoseq1/2 classify* is too relaxed and is not filtering
+junk molecules to a satifactory level. In fact, *lima* calls are spot on and
+effectively removes most molecules that are wrongly tagged, as in two 5' or two
+3' primers. Only a proper 5' and 3' primer pair allows to identify a full-length
+transcript and its orientation.
 
- Quality values are capped at `93`.
+### I can't find the *classify* step
+*Classify* has been replaced with PacBio's standard demultiplexing tool *lima*.
+*Lima* does not remove polyA tails, nor detects concatmers. See the next Q.
+
+### Can I perform "classify only" to get FLNC reads?
+One of the early outputs of the `cluster` step is a `*.flnc.bam` file. Feel
+free to abort after this file has been written.
+
+### How long will it take until my data has been processed?
+There is no ETA feature. Depending on the sample type, whole transcriptome
+or targeted amplification, run time varies. The same number of reads from a
+whole transcriptome sample can finish clustering in minutes, whereas a single
+gene amplification of 10kb transcripts can take a couple of hours.
 
 ### Which clustering algorithm is used?
 In contrast to its predecessors, *IsoSeq3* does not rely on NP-hard clique
@@ -267,6 +288,26 @@ feasible.
 
 ### How many subreads are used for polishing?
 *Polish* uses up to 60 subreads to polish the cluster consensus.
+
+### When are two reads clustered?
+*IsoSeq3* deems two reads to stem from the same transcript, if they meet
+following criteria:
+
+<img width="1000px" src="doc/img/isoseq3-similar-transcripts.png"/>
+
+There is no upper limit on the number of gaps.
+
+
+### BAM tags explained
+Following BAM tags are being used:
+
+ - `ib` Barcode summary: triplets delimited by semicolons, each triplet contains two barcode indices and the ZMW counts, delimited by comma. Example: `0,1,20;0,3,5`
+ - `im` Number of ZMWs associated with this isoform
+ - `is` ZMW names associated with this isoform
+ - `iz` Maximum number of subreads used for polishing
+ - `rq` Predicted accuracy for polished isoform
+
+ Quality values are capped at `93`.
 
 ## DISCLAIMER
 
