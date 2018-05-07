@@ -17,6 +17,7 @@ machines with similar performance to *IsoSeq1* and *IsoSeq2*.
 ## Overview
  - [SMRTbell Designs](README.md#smrtbell-designs)
  - [Workflow Overview](README.md#workflow)
+ - [Installation](README.md#installation)
  - [Real-World Example](README.md#real-world-example)
  - [FAQ](README.md#faq)
 
