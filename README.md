@@ -164,6 +164,12 @@ Example invocation:
  - *ccs*: Get it from the official [SMRT Link](https://www.pacb.com/support/software-downloads/) or compile your own from [unanimity](https://github.com/PacificBiosciences/unanimity)
  - *lima*: Pre-compiled binary from [barcoding](https://github.com/pacificbiosciences/barcoding)
  - *isoseq3*: Pre-compiled binaries from [releases](https://github.com/PacificBiosciences/IsoSeq3/releases)
+ 
+Add the directory containing the binaries to `PATH`:
+
+```
+export PATH=$PATH:<path_to_binaries>
+```
 
 ## Real-world example
 This is an example of an end-to-end cmd-line-only workflow to get from
