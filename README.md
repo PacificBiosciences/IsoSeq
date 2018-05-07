@@ -35,26 +35,12 @@ not via mail to developers.
 
 ## SMRTbell designs
 
-PacBio supports three out of four different SMRTbell designs. In all designs,
-transcripts are labelled with asymmetric primers, whereas the polyA tail is
-optional. Barcodes can be attached in three possible ways, but only two are
-supported by PacBio.
+PacBio supports three different SMRTbell designs for IsoSeq libraries.
+In all designs, transcripts are labelled with asymmetric primers,
+whereas a polyA tail is optional.
+For whole-genome libraries, barcodes can be attached to the 3' primer.
 
-<img width="600px" src="doc/img/barcoding.svg"/>
-
-### (1) Only cDNA primers, not barcoded
-A typical single-sample IsoSeq design with no barcodes.
-
-### (2) UNSUPPORTED: cDNA primers with a 5' barcode
-This barcode scheme is not supported, due to the similarities of the cDNA primers.
-
-### (3) cDNA primers with a 3' barcode
-A typical multi-sample barcoding technique. The barcode is attached to the 3'
-primer.
-
-### (4) cDNA primers with a 3' + 5' barcodes
-If there is a need to sequence high-plex samples, an asymmetric approach can
-be chosen, in which both, the 3' and 5' primers, are barcoded.
+<img width="600px" src="doc/img/isoseq3-barcoding.png"/>
 
 ## Workflow
 
