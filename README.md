@@ -34,6 +34,8 @@ provided by PacBio.
 Unofficial support for binary pre-releases is provided via github issues,
 not via mail to developers.
 
+Binaries require **SSE4.1 CPU support**; CPUs after 2008 (Penryn) include it.
+
 ## SMRTbell designs
 
 PacBio supports three different SMRTbell designs for IsoSeq libraries.
