@@ -199,7 +199,7 @@ subreads to polished isoforms; timings are system dependent:
     lima 1.6.1 (commit v1.6.1-1-g77bd658)
 
     $ time lima m54086_170204_081430.ccs.bam primers.fasta demux.bam \
-                --isoseq --no-pbi
+                --isoseq --no-pbi --dump-clips
 
     real    0m6.543s
     user    0m51.170s
