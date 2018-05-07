@@ -238,6 +238,14 @@ subreads to polished isoforms; timings are system dependent:
     user    2832m8.382s
     $ ls polished*
     polished.bam  polished.bam.pbi  polished.hq.fasta.gz  polished.hq.fastq.gz  polished.lq.fasta.gz  polished.lq.fastq.gz  polished.transcriptset.xml
+    
+If you have multiple cells, you should run `--split-bam` in the cluster step which will produce chunked cluster results. Each chunked cluster result can be run as a parallel polish job and merged at the end. The following example splits into 24 chunks. `sample.subreadset.xml` is the dataset containing all the input cells. The `isoseq3 polish` jobs can be run in parallel.
+
+    $ isoseq3 cluster demux.primer_5p--primer_3p.bam unpolished.bam --split-bam 24
+    $ isoseq3 polish unpolished.0.bam sample.subreadset.xml polished.0.bam
+    $ isoseq3 polish unpolished.1.bam sample.subreadset.xml polished.1.bam
+    $ ...
+    
 
 ## FAQ
 ### Why IsoSeq3 and not the established IsoSeq1 or IsoSeq2?
@@ -245,7 +253,7 @@ The ever-increasing throughput of the Sequel system gave rise to the need for a
 scalable software solution that can handle millions of CCS reads, while
 maintaining sensitivity and accuracy. Internal benchmarks have shown that
 *IsoSeq3* is orders of magnitude faster than currently employed solutions and
-[SQUANTI](https://bitbucket.org/ConesaLab/sqanti) attributes *IsoSeq3* a higher
+[SQANTI](https://bitbucket.org/ConesaLab/sqanti) attributes *IsoSeq3* a higher
 number of perfectly annotated isoforms. Additional benefit, single linux binary
 that requires no dependencies.
 
