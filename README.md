@@ -72,21 +72,21 @@ sequences in this [FAQ](https://github.com/pacificbiosciences/barcoding#how-can-
 
     lima ccs.bam barcoded_primers.fasta demux.ccs.bam --isoseq --no-pbi
 
-Example for a `primer.fasta` that is for a single sample, without barcodes:
+The following is the `primer.fasta` for the Clontech SMARTer cDNA library prep, which is the officially recommended protocol:
 
     >primer_5p
-    AAGCAGTGGTATCAACGCAGAGTACATGGGG
+    AAGCAGTGGTATCAACGCAGAGTACATGGG
     >primer_3p
-    AAGCAGTGGTATCAACGCAGAGTAC
+    GTACTCTGCGTTGATACCACTGCTT
 
-Example for a two barcodes sample:
+The following are examples for barcoded samples using a 16bp barcode followed by Clontech primer:
 
     >primer_5p
     AAGCAGTGGTATCAACGCAGAGTACATGGGG
-    >sample_brain_3p
-    AAGCAGTGGTATCAACGCAGAGTACCACATATCAGAGTGCG
-    >sample_liver_3p
-    AAGCAGTGGTATCAACGCAGAGTACACACACAGACTGTGAG
+    >brain_3p
+    CGCACTCTGATATGTGGTACTCTGCGTTGATACCACTGCTT
+    >liver_3p
+    CTCACAGTCTGTGTGTGTACTCTGCGTTGATACCACTGCTT
 
 *Lima* will remove unwanted combinations and orient sequences according to
 the asymmetry of the primers.
