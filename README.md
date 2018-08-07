@@ -123,7 +123,7 @@ technique.
 Due to the nature of the algorithm, it can't be efficiently chunked
 without creating IO bottlenecks; it is advised to give this step as many cores
 as possible. The individual steps of *cluster* are as following:
- - [Trimming](https://github.com/PacificBiosciences/trim_isoseq_polyA) of polyA tails
+ - [Trimming](https://github.com/PacificBiosciences/trim_isoseq_polyA) of polyA tails `--require-polya`
  - Rapid concatmer [identification](https://github.com/jeffdaily/parasail) and removal
  - Clustering using hierarchical n*log(n) [alignment](https://github.com/lh3/minimap2) and iterative cluster merging
  - Unpolished [POA](https://github.com/rvaser/spoa) sequence generation
@@ -280,7 +280,8 @@ transcript and its orientation.
 
 ### Can I perform "classify only" to get FLNC reads?
 One of the early outputs of the `cluster` step is a `*.flnc.bam` file. Feel
-free to abort after this file has been written.
+free to abort after this file has been written. This will be addressed in the
+upcoming version.
 
 ### How long will it take until my data has been processed?
 There is no ETA feature. Depending on the sample type, whole transcriptome
@@ -308,13 +309,16 @@ following criteria:
 
 There is no upper limit on the number of gaps.
 
+### My sample has poly(A) tails, how can I remove them?
+Use `--require-polya`. This filters for FL reads that have a poly(A) tail
+with at least 20 base pairs and removes identified tail.
 
 ### BAM tags explained
 Following BAM tags are being used:
 
  - `ib` Barcode summary: triplets delimited by semicolons, each triplet contains two barcode indices and the ZMW counts, delimited by comma. Example: `0,1,20;0,3,5`
- - `im` Number of ZMWs associated with this isoform
- - `is` ZMW names associated with this isoform
+ - `im` ZMW names associated with this isoform
+ - `is` Number of ZMWs associated with this isoform
  - `iz` Maximum number of subreads used for polishing
  - `rq` Predicted accuracy for polished isoform
 
