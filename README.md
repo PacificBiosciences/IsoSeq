@@ -40,6 +40,10 @@ not via mail to developers.
 
 Binaries require **SSE4.1 CPU support**; CPUs after 2008 (Penryn) include it.
 
+## Changelog
+
+ * 3.0.0: Initial release, included in SMRT Link 6.0.0
+
 ## SMRTbell designs
 
 PacBio supports three different SMRTbell designs for IsoSeq libraries.
@@ -171,7 +175,7 @@ Example invocation:
  - *ccs*: Get it from the official [SMRT Link](https://www.pacb.com/support/software-downloads/) or compile your own from [unanimity](https://github.com/PacificBiosciences/unanimity)
  - *lima*: Pre-compiled binary from [barcoding](https://github.com/pacificbiosciences/barcoding)
  - *isoseq3*: Pre-compiled binaries from [releases](https://github.com/PacificBiosciences/IsoSeq3/releases)
- 
+
 Add the directory containing the binaries to `PATH`:
 
 ```
@@ -242,14 +246,14 @@ subreads to polished isoforms; timings are system dependent:
     user    2832m8.382s
     $ ls polished*
     polished.bam  polished.bam.pbi  polished.hq.fasta.gz  polished.hq.fastq.gz  polished.lq.fasta.gz  polished.lq.fastq.gz  polished.transcriptset.xml
-    
+
 If you have multiple cells, you should run `--split-bam` in the cluster step which will produce chunked cluster results. Each chunked cluster result can be run as a parallel polish job and merged at the end. The following example splits into 24 chunks. `sample.subreadset.xml` is the dataset containing all the input cells. The `isoseq3 polish` jobs can be run in parallel.
 
     $ isoseq3 cluster demux.primer_5p--primer_3p.bam unpolished.bam --split-bam 24
     $ isoseq3 polish unpolished.0.bam sample.subreadset.xml polished.0.bam
     $ isoseq3 polish unpolished.1.bam sample.subreadset.xml polished.1.bam
     $ ...
-    
+
 
 ## FAQ
 ### Why IsoSeq3 and not the established IsoSeq1 or IsoSeq2?
