@@ -22,9 +22,8 @@ machines with similar performance to *IsoSeq1* and *IsoSeq2*.
  - [FAQ](README.md#faq)
 
 ## Availability
-The latest pre-release, developers-only linux binaries can be found under
-[releases](https://github.com/PacificBiosciences/IsoSeq3/releases) or
-installed via [bioconda](https://bioconda.github.io/):
+The latest pre-release, developers-only linux binaries can be installed via [bioconda](https://bioconda.github.io/).
+All necessary dependencies will be installed automatically.
 
     conda install isoseq3
 
