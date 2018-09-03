@@ -67,7 +67,7 @@ at least one full pass (at least once subread with SMRT adapter on both ends) ar
 used for the subsequent analysis. Polishing is not necessary
 in this step and is by default deactivated through `.
 
-    ccs movie.subreads.bam ccs.bam --noPolish --num-passes 1
+    ccs movie.subreads.bam ccs.bam --noPolish --minPasses 1
 
 ### Primer removal and demultiplexing
 Removal of cDNA primers and identification of barcodes (if given) is performed using [*lima*](https://github.com/pacificbiosciences/barcoding),
