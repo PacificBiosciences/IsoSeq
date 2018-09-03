@@ -17,14 +17,12 @@ machines with similar performance to *IsoSeq1* and *IsoSeq2*.
 ## Overview
  - [SMRTbell Designs](README.md#smrtbell-designs)
  - [Workflow Overview](README.md#workflow)
- - [Installation](README.md#installation)
  - [Real-World Example](README.md#real-world-example)
  - [FAQ](README.md#faq)
 
 ## Availability
-The latest pre-release, developers-only linux binaries can be found under
-[releases](https://github.com/PacificBiosciences/IsoSeq3/releases) or
-installed via [bioconda](https://bioconda.github.io/):
+The latest pre-release, developers-only linux binaries can be installed via [bioconda](https://bioconda.github.io/).
+All necessary dependencies will be installed automatically.
 
     conda install isoseq3
 
@@ -48,8 +46,7 @@ Binaries require **SSE4.1 CPU support**; CPUs after 2008 (Penryn) include it.
 
 PacBio supports three different SMRTbell designs for IsoSeq libraries.
 In all designs, transcripts are labelled with asymmetric primers,
-whereas a polyA tail is optional.
-For whole-genome libraries, barcodes can be attached to the 3' primer.
+whereas a polyA tail is optional. Barcodes may be optionally added.
 
 <img width="600px" src="doc/img/isoseq3-barcoding.png"/>
 
@@ -61,24 +58,23 @@ For whole-genome libraries, barcodes can be attached to the 3' primer.
 For each cell, the `<movie>.subreads.bam` and `<movie>.subreads.bam.pbi`
 are needed for processing.
 
-### Consensus calling
+### Circular Consensus Sequence calling
 Each sequencing run is processed by [*ccs*](https://github.com/PacificBiosciences/unanimity)
-to generate one representative consensus sequence for each ZMW. Only ZMWs with
-at least one full pass, meaning at least each primer has been seen once, are
-used for the subsequent analysis. Furthermore, polishing is not necessary
-in this step and is deactivated.
+to generate one representative circular consensus sequence (CCS) for each ZMW. Only ZMWs with
+at least one full pass (at least once subread with SMRT adapter on both ends) are
+used for the subsequent analysis. Polishing is not necessary
+in this step and is by default deactivated through `.
 
-    ccs movie.subreads.bam ccs.bam --no-polish --num-passes 1
+    ccs movie.subreads.bam ccs.bam --noPolish --minPasses 1
 
 ### Primer removal and demultiplexing
-Removal of primers and identification of barcodes is performed using [*lima*](https://github.com/pacificbiosciences/barcoding),
+Removal of cDNA primers and identification of barcodes (if given) is performed using [*lima*](https://github.com/pacificbiosciences/barcoding),
 which offers a specialized `--isoseq` mode.
-Even in the case that your sample is not barcoded, primer removal is performed
-by *lima*.
+
 More information about how to name input primer(+barcode)
 sequences in this [FAQ](https://github.com/pacificbiosciences/barcoding#how-can-i-demultiplex-isoseq-data).
 
-    lima ccs.bam barcoded_primers.fasta demux.ccs.bam --isoseq --no-pbi
+    lima --isoseq --dump-clips --no-pbi ccs.bam primers.fasta demux.bam
 
 The following is the `primer.fasta` for the Clontech SMARTer cDNA library prep, which is the officially recommended protocol:
 
@@ -96,8 +92,7 @@ The following are examples for barcoded samples using a 16bp barcode followed by
     >liver_3p
     CTCACAGTCTGTGTGTGTACTCTGCGTTGATACCACTGCTT
 
-*Lima* will remove unwanted combinations and orient sequences according to
-the asymmetry of the primers.
+*lima* will remove unwanted combinations and orient sequences to 5' -> 3' orientation.
 
 From here on, execute the following steps for each output BAM file.
 
@@ -120,8 +115,7 @@ From here on, execute the following steps for each output BAM file.
 #### Clustering and transcript clean up
 Compared to previous IsoSeq approaches, *IsoSeq3* performs a single clustering
 technique.
-Due to the nature of the algorithm, it can't be efficiently chunked
-without creating IO bottlenecks; it is advised to give this step as many cores
+Due to the nature of the algorithm, it can't be efficiently parallelized. It is advised to give this step as many cores
 as possible. The individual steps of *cluster* are as following:
  - [Trimming](https://github.com/PacificBiosciences/trim_isoseq_polyA) of polyA tails `--require-polya`
  - Rapid concatmer [identification](https://github.com/jeffdaily/parasail) and removal
@@ -143,10 +137,9 @@ The following output files of *cluster* contain unpolished isoforms:
 
 Example invocation:
 
-    isoseq3 cluster demux.P5--P3.bam unpolished.bam --verbose
+    isoseq3 cluster demux.P5--P3.bam unpolished.bam -j 32 [--split-bam 24]
 
 #### Polishing
-Polishing via the tool *polish* is an optional step, but highly recommended.
 The algorithm behind *polish* is the *arrow* model that also used for CCS
 generation and polishing of de-novo assemblies. This step can be massively
 parallelized by splitting the `unpolished.bam` file. Split BAM files can be
@@ -171,26 +164,17 @@ Example invocation:
 
     isoseq3 polish unpolished.bam m54020_171110_2301211.subreads.bam polished.bam
 
-## Installation
- - *ccs*: Get it from the official [SMRT Link](https://www.pacb.com/support/software-downloads/) or compile your own from [unanimity](https://github.com/PacificBiosciences/unanimity)
- - *lima*: Pre-compiled binary from [barcoding](https://github.com/pacificbiosciences/barcoding)
- - *isoseq3*: Pre-compiled binaries from [releases](https://github.com/PacificBiosciences/IsoSeq3/releases)
 
-Add the directory containing the binaries to `PATH`:
-
-```
-export PATH=$PATH:<path_to_binaries>
-```
 
 ## Real-world example
 This is an example of an end-to-end cmd-line-only workflow to get from
-subreads to polished isoforms; timings are system dependent:
+subreads to polished isoforms.
 
     $ wget https://downloads.pacbcloud.com/public/dataset/RC0_1cell_2017/m54086_170204_081430.subreads.bam
     $ wget https://downloads.pacbcloud.com/public/dataset/RC0_1cell_2017/m54086_170204_081430.subreads.bam.pbi
 
     $ ccs --version
-    ccs 3.0.0 (commit f9f505c)
+    ccs 3.1.0 (commit v3.1.0)
 
     $ time ccs m54086_170204_081430.subreads.bam m54086_170204_081430.ccs.bam \
                --noPolish --minPasses 1
@@ -206,7 +190,7 @@ subreads to polished isoforms; timings are system dependent:
     AAGCAGTGGTATCAACGCAGAGTAC
 
     $ lima --version
-    lima 1.6.1 (commit v1.6.1-1-g77bd658)
+    lima 1.7.1 (commit v1.7.1)
 
     $ time lima m54086_170204_081430.ccs.bam primers.fasta demux.bam \
                 --isoseq --no-pbi --dump-clips
