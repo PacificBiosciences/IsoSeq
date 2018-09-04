@@ -4,6 +4,12 @@
 
 ***
 
+## Availability
+Latest IsoSeq3 can be installed via bioconda package `isoseq3`.
+
+Please refer to our [official pbbioconda page](https://github.com/PacificBiosciences/pbbioconda)
+for information on Installation, Support, License, Copyright, and Disclaimer.
+
 ## Scope
 *IsoSeq3* contains the newest tools to identify transcripts in
 PacBio single-molecule sequencing data.
@@ -13,30 +19,12 @@ A composable workflow of existing tools and algorithms, combined with
 a new clustering technique, allows to process the ever-increasing yield of PacBio
 machines with similar performance to *IsoSeq1* and *IsoSeq2*.
 
-
 ## Overview
+ - [Changelog](README.md#changelog)
  - [SMRTbell Designs](README.md#smrtbell-designs)
  - [Workflow Overview](README.md#workflow)
  - [Real-World Example](README.md#real-world-example)
  - [FAQ](README.md#faq)
-
-## Availability
-The latest pre-release, developers-only linux binaries can be installed via [bioconda](https://bioconda.github.io/).
-All necessary dependencies will be installed automatically.
-
-    conda install isoseq3
-
-These binaries are not ISO compliant.
-For research only.
-Not for use in diagnostics procedures.
-
-Official support is only provided for official and stable SMRT Link builds
-provided by PacBio.
-
-Unofficial support for binary pre-releases is provided via github issues,
-not via mail to developers.
-
-Binaries require **SSE4.1 CPU support**; CPUs after 2008 (Penryn) include it.
 
 ## Changelog
 
@@ -307,6 +295,9 @@ Following BAM tags are being used:
  - `rq` Predicted accuracy for polished isoform
 
  Quality values are capped at `93`.
+
+### The binary does not work on my linux system!
+Binaries require **SSE4.1 CPU support**; CPUs after 2008 (Penryn) include it.
 
 ## DISCLAIMER
 
