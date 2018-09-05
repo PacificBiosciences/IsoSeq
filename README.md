@@ -4,13 +4,6 @@
 
 ***
 
-## Availability
-Latest IsoSeq3 can be installed via bioconda package `isoseq3`.
-
-Please refer to our [official pbbioconda page](https://github.com/PacificBiosciences/pbbioconda)
-for information on Installation, Support, License, Copyright, and Disclaimer.
-
-## Scope
 *IsoSeq3* contains the newest tools to identify transcripts in
 PacBio single-molecule sequencing data.
 Starting in SMRT Link v6.0.0, those tools power the
@@ -18,6 +11,12 @@ Starting in SMRT Link v6.0.0, those tools power the
 A composable workflow of existing tools and algorithms, combined with
 a new clustering technique, allows to process the ever-increasing yield of PacBio
 machines with similar performance to *IsoSeq1* and *IsoSeq2*.
+
+## Availability
+Latest version can be installed via bioconda package `isoseq3`.
+
+Please refer to our [official pbbioconda page](https://github.com/PacificBiosciences/pbbioconda)
+for information on Installation, Support, License, Copyright, and Disclaimer.
 
 ## Overview
  - [Changelog](README.md#changelog)
