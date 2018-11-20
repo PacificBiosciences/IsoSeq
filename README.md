@@ -20,12 +20,13 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
 
 ## Specific Version Documentation
 
- * [Version 3.1](README_v3.1.md)
+ * [Version 3.1, SMRT Link (future version)](README_v3.1.md)
  * [Version 3.0, SMRT Link 6.0](README_v3.0.md)
 
-## Changelog
-
- * 3.0.0: Initial release, included in SMRT Link 6.0.0
+## What is new in version 3.1?
+We outsourced the poly(A) tail removal and concatemer detection into a new tool
+called `refine`. Your custom `primers.fasta` is used in this step to detect
+concatemers.
 
 ## FAQ
 ### Why IsoSeq3 and not the established IsoSeq1 or IsoSeq2?
@@ -34,26 +35,35 @@ scalable software solution that can handle millions of CCS reads, while
 maintaining sensitivity and accuracy. Internal benchmarks have shown that
 *IsoSeq3* is orders of magnitude faster than currently employed solutions and
 [SQANTI](https://bitbucket.org/ConesaLab/sqanti) attributes *IsoSeq3* a higher
-number of perfectly annotated isoforms. Additional benefit, single linux binary
-that requires no dependencies.
+number of perfectly annotated isoforms:
+
+<img width="1000px" src="doc/img/isoseq3-performance.png"/>
+
+Additional benefit, single linux binary that requires no dependencies.
 
 ### Why is the number of transcripts much lower with IsoSeq3?
 Even though we also observe fewer polished transcripts with *IsoSeq3*, the
 overall quality is much higher. Most of the low-quality transcripts are lost in the
 demultiplexing step. *Isoseq1/2 classify* is too relaxed and is not filtering
-junk molecules to a satifactory level. In fact, *lima* calls are spot on and
+junk molecules to a satisfactory level. In fact, *lima* calls are spot on and
 effectively removes most molecules that are wrongly tagged, as in two 5' or two
 3' primers. Only a proper 5' and 3' primer pair allows to identify a full-length
 transcript and its orientation.
 
-### I can't find the *classify* step
-*Classify* has been replaced with PacBio's standard demultiplexing tool *lima*.
-*Lima* does not remove polyA tails, nor detects concatmers. See the next Q.
 
-### Can I perform "classify only" to get FLNC reads?
-One of the early outputs of the `cluster` step is a `*.flnc.bam` file. Feel
-free to abort after this file has been written. This will be addressed in the
-upcoming version.
+### I can't find the *classify* step
+Starting with version 3.1, *classify* functionality has been split into two tools.
+Removal of (barcoded) primers is performed with PacBio's standard demultiplexing
+tool *lima*. *Lima* does not remove poly(A) tails, nor detects concatemers.
+For this, `isoseq3 refine` generates FLNC reads.
+
+For version 3.0, poly(A) tail removal and concatemer detection is performed in
+`isoseq3 cluster`
+
+### My sample has poly(A) tails, how can I remove them?
+Use `--require-polya` for `isoseq3 refine`.
+This filters for FL reads that have a poly(A) tail
+with at least 20 base pairs and removes identified tail.
 
 ### How long will it take until my data has been processed?
 There is no ETA feature. Depending on the sample type, whole transcriptome
@@ -81,10 +91,6 @@ following criteria:
 
 There is no upper limit on the number of gaps.
 
-### My sample has poly(A) tails, how can I remove them?
-Use `--require-polya`. This filters for FL reads that have a poly(A) tail
-with at least 20 base pairs and removes identified tail.
-
 ### BAM tags explained
 Following BAM tags are being used:
 
@@ -95,6 +101,14 @@ Following BAM tags are being used:
  - `rq` Predicted accuracy for polished isoform
 
  Quality values are capped at `93`.
+
+### What SMRTbell designs are possible?
+
+PacBio supports three different SMRTbell designs for IsoSeq libraries.
+In all designs, transcripts are labelled with asymmetric primers,
+whereas a poly(A) tail is optional. Barcodes may be optionally added.
+
+<img width="600px" src="doc/img/isoseq3-barcoding.png"/>
 
 ### The binary does not work on my linux system!
 Binaries require **SSE4.1 CPU support**; CPUs after 2008 (Penryn) include it.

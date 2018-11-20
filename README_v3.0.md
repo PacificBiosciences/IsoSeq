@@ -25,21 +25,9 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
  - [Real-World Example](README_v3.0.md#real-world-example)
  - [FAQ](README.md#faq)
 
-## Changelog
-
- * 3.0.0: Initial release, included in SMRT Link 6.0.0
-
-## SMRTbell designs
-
-PacBio supports three different SMRTbell designs for IsoSeq libraries.
-In all designs, transcripts are labelled with asymmetric primers,
-whereas a polyA tail is optional. Barcodes may be optionally added.
-
-<img width="600px" src="doc/img/isoseq3-barcoding.png"/>
-
 ## Workflow
 
-<img width="1000px" src="doc/img/isoseq3-workflow.png"/>
+<img width="1000px" src="doc/img/isoseq3.0-workflow.png"/>
 
 ### Input
 For each cell, the `<movie>.subreads.bam` and `<movie>.subreads.bam.pbi`
