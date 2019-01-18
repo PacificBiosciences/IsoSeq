@@ -19,7 +19,6 @@ Please refer to our [official pbbioconda page](https://github.com/PacificBioscie
 for information on Installation, Support, License, Copyright, and Disclaimer.
 
 ## Overview
- - [Changelog](README_v3.1.md#changelog)
  - Workflow Overview: [high](README_v3.1.md#high-level-workflow) / [mid](README_v3.1.md#mid-level-workflow) / [low](README_v3.1.md#low-level-workflow) level
  - [Real-World Example](README_v3.1.md#real-world-example)
  - [FAQ](README_v3.1.md#faq)
