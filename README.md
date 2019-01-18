@@ -20,11 +20,11 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
 
 ## Specific Version Documentation
 
- * [Version 3.1, SMRT Link (future version)](README_v3.1.md)
+ * [Version 3.1, SMRT Link 7.0](README_v3.1.md)
  * [Version 3.0, SMRT Link 6.0](README_v3.0.md)
 
-## What is new in version 3.1?
-We outsourced the poly(A) tail removal and concatemer detection into a new tool
+## Changelog
+ * **3.1.0**: We outsourced the poly(A) tail removal and concatemer detection into a new tool
 called `refine`. Your custom `primers.fasta` is used in this step to detect
 concatemers.
 
