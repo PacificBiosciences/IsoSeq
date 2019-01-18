@@ -19,7 +19,6 @@ Please refer to our [official pbbioconda page](https://github.com/PacificBioscie
 for information on Installation, Support, License, Copyright, and Disclaimer.
 
 ## Overview
- - [Changelog](README_v3.0.md#changelog)
  - [SMRTbell Designs](README_v3.0.md#smrtbell-designs)
  - [Workflow Overview](README_v3.0.md#workflow)
  - [Real-World Example](README_v3.0.md#real-world-example)
