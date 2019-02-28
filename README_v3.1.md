@@ -64,18 +64,23 @@ Removal of primers and identification of barcodes is performed using [*lima*](ht
 which offers a specialized `--isoseq` mode.
 Even in the case that your sample is not barcoded, primer removal is performed
 by *lima*.
+If there are more than two sequences in your `primer.fasta` file or better said
+more than one pair of 5' and 3' primers, please use *lima* with `--peek-guess`
+to remove spurious false positive signal.
 More information about how to name input primer(+barcode)
 sequences in this [FAQ](https://github.com/pacificbiosciences/barcoding#how-can-i-demultiplex-isoseq-data).
 
-    $ lima movieX.ccs.bam barcoded_primers.fasta movieX.fl.bam --isoseq --no-pbi
+    $ lima movieX.ccs.bam barcoded_primers.fasta movieX.fl.bam --isoseq --no-pbi --peek-guess
 
 **Example 1:**
-Following is the `primer.fasta` for the Clontech SMARTer cDNA library prep,
-which is the officially recommended protocol:
+Following is the `primer.fasta` for the Clontech SMARTer and NEB cDNA library
+prep, which are the officially recommended protocols:
 
-    >primer_5p
-    AAGCAGTGGTATCAACGCAGAGTACATGGG
-    >primer_3p
+    >NEB_5p
+    GCAATGAAGTCGCAGGGTTGGG
+    >Clontech_5p
+    AAGCAGTGGTATCAACGCAGAGTACATGGGG
+    >NEB_Clontech_3p
     GTACTCTGCGTTGATACCACTGCTT
 
 **Example 2:**
@@ -94,7 +99,7 @@ Clontech primer:
 Output files will be called according to their primer pair. Example for
 single sample libraries:
 
-    movieX.fl.primer_5p--primer_3p.bam
+    movieX.fl.NEB_5p--NEB_Clontech_3p.bam
 
 If your library contains multiple samples, execute the following workflow
 for each primer pair:
@@ -120,13 +125,13 @@ The following output files of *refine* contain full-length non-concatemer reads:
 
 Actual command to refine:
 
-    $ isoseq3 refine movieX.primer_5p--primer_3p.fl.bam primers.fasta movieX.flnc.bam
+    $ isoseq3 refine movieX.NEB_5p--NEB_Clontech_3p.fl.bam primers.fasta movieX.flnc.bam
 
 If your sample has poly(A) tails, use `--require-polya`.
 This filters for FL reads that have a poly(A) tail
 with at least 20 base pairs and removes identified tail:
 
-    $ isoseq3 refine movieX.primer_5p--primer_3p.fl.bam movieX.flnc.bam --require-polya
+    $ isoseq3 refine movieX.NEB_5p--NEB_Clontech_3p.fl.bam movieX.flnc.bam --require-polya
 
 ### Step 3b - Merge SMRT Cells
 If you used more than one SMRT cells, use `dataset` for merging.
@@ -225,10 +230,10 @@ subreads to polished isoforms:
     AAGCAGTGGTATCAACGCAGAGTAC
 
     $ lima --version
-    lima 1.8.0 (commit v1.8.0)
+    lima 1.9.0 (commit v1.9.0)
 
     $ lima m54086_170204_081430.ccs.bam primers.fasta m54086_170204_081430.fl.bam \
-           --isoseq --no-pbi
+           --isoseq --no-pbi --peek-guess
 
     $ ls m54086_170204_081430.fl*
     m54086_170204_081430.fl.json         m54086_170204_081430.fl.lima.summary

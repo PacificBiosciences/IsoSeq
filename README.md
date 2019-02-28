@@ -24,7 +24,12 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
  * [Version 3.0, SMRT Link 6.0](README_v3.0.md)
 
 ## Changelog
- * **3.1.0**: We outsourced the poly(A) tail removal and concatemer detection into a new tool
+ * **3.1.1**
+   * Edge case fix where `polish` would not finish and stale
+   * Improve `polish` run time for large scale datasets (> 1M CCS)
+   * Improve `polish` result quality
+ * 3.1.0
+   * We outsourced the poly(A) tail removal and concatemer detection into a new tool
 called `refine`. Your custom `primers.fasta` is used in this step to detect
 concatemers.
 
