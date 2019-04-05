@@ -24,7 +24,9 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
  * [Version 3.0, SMRT Link 6.0](README_v3.0.md)
 
 ## Changelog
- * **3.1.1**
+ * **3.1.2**
+   * Reduce `polish` memory footprint
+ * 3.1.1
    * Edge case fix where `polish` would not finish and stale
    * Improve `polish` run time for large scale datasets (> 1M CCS)
    * Improve `polish` result quality
