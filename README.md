@@ -20,11 +20,18 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
 
 ## Specific Version Documentation
 
+ * [Version 3.2, SMRT Link 8.0](README_v3.2.md)
  * [Version 3.1, SMRT Link 7.0](README_v3.1.md)
  * [Version 3.0, SMRT Link 6.0](README_v3.0.md)
 
 ## Changelog
- * **3.1.2**
+ * **3.2.0**
+   * Add `collapse` step for aligned transcript BAM input
+   * Enable CCS-only workflow `cluster --use-qvs`
+   * Add `refine --min-polya-length`
+   * Add `cluster --singletons` to output unclustered FLNCs; potential sample prep artifacts!
+   * Fix minimap2 bugs. Outputs might change slightly.
+ * 3.1.2
    * Reduce `polish` memory footprint
  * 3.1.1
    * Edge case fix where `polish` would not finish and stale

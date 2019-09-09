@@ -1,5 +1,5 @@
 <h1 align="center"><img width="300px" src="doc/img/isoseq3.png"/></h1>
-<h1 align="center">IsoSeq 3.1</h1>
+<h1 align="center">IsoSeq 3.2</h1>
 <p align="center">Scalable De Novo Isoform Discovery</p>
 
 ***
@@ -11,6 +11,11 @@ Starting in SMRT Link v6.0.0, those tools power the
 A composable workflow of existing tools and algorithms, combined with
 a new clustering technique, allows to process the ever-increasing yield of PacBio
 machines with similar performance to *IsoSeq1* and *IsoSeq2*.
+
+Focus of version 3.2 documentation is processing of polished CCS reads,
+the latest feature of *IsoSeq3*. Processing of unpolished CCS reads with final
+transcript polishing is still supported, please refer to the
+[documentation of version 3.1](README_v3.1.md).
 
 ## Availability
 Latest version can be installed via bioconda package `isoseq3`.
@@ -28,13 +33,13 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
 
 The high-level workflow depicts files and processes:
 
-<img width="1000px" src="doc/img/isoseq3.1-end-to-end.png"/>
+<img width="1000px" src="doc/img/isoseq3.2-end-to-end.png"/>
 
 ## Mid-level workflow
 
 The mid-level workflow schematically explains what happens at each stage:
 
-<img width="1000px" src="doc/img/isoseq3.1-workflow.png"/>
+<img width="1000px" src="doc/img/isoseq3.2-workflow.png"/>
 
 ## Low-level workflow
 
@@ -42,26 +47,19 @@ The low-level workflow explained via CLI calls. All necessary dependencies are
 installed via bioconda.
 
 ### Step 0 - Input
-For each SMRT cell, the `movieX.subreads.bam`, `movieX.subreads.bam.pbi`,
-and `movieX.subreadset.xml` are needed for processing.
+For each SMRT cell a `movieX.subreads.bam` is needed for processing.
 
 ### Step 1 - Circular Consensus Sequence calling
 Each sequencing run is processed by [*ccs*](https://github.com/PacificBiosciences/unanimity)
 to generate one representative circular consensus sequence (CCS) for each ZMW. Only ZMWs with
 at least one full pass (at least one subread with SMRT adapter on both ends) are
-used for the subsequent analysis. Polishing is not necessary
-in this step and is by default deactivated through.
+used for the subsequent analysis. In contrast to older IsoSeq versions,
+CCS polishing is required to enable skipping of the transcript polishing.
+It is advised to use the latest CCS version 4.0.0 or newer.
 
-    $ ccs movieX.subreads.bam movieX.ccs.bam --noPolish --minPasses 1
+    $ ccs movieX.subreads.bam movieX.ccs.bam --min-rq 0.9
 
-For long movies and short inserts, it is advised to limit the number of subreads
-used per ZMW; this can decrease run-time (only available in ccs version ≥ 3.1.0):
-
-    $ ccs movieX.subreads.bam movieX.ccs.bam --noPolish --minPasses 1 --maxPoaCoverage 10
-
-For **CCS version ≥ 4.0.0** use this call:
-
-    $ ccs movieX.subreads.bam movieX.ccs.bam --skip-polish --min-passes 1 --draft-mode winpoa --disable-heuristics
+More info how to [easily chunk ccs](https://github.com/PacificBiosciences/ccs#how-can-I-parallelize-on-multiple-servers).
 
 ### Step 2 - Primer removal and demultiplexing
 Removal of primers and identification of barcodes is performed using [*lima*](https://github.com/pacificbiosciences/barcoding),
@@ -143,10 +141,6 @@ Merge all of your `<movie>.flnc.bam` files:
 
     $ dataset create --type TranscriptSet merged.flnc.xml movie1.flnc.bam movie2.flnc.bam movieN.flnc.bam
 
-Similarly, merge all of your **source** `<movie>.subreadset.xml` files:
-
-    $ dataset create --type SubreadSet merged.subreadset.xml movie1.subreadset.xml movie2.subreadset.xml movieN.subreadset.xml
-
 ### Step 4 - Clustering
 Compared to previous IsoSeq approaches, *IsoSeq3* performs a single clustering
 technique.
@@ -155,63 +149,23 @@ It is advised to give this step as many coresas possible.
 The individual steps of *cluster* are as following:
 
  - Clustering using hierarchical n*log(n) [alignment](https://github.com/lh3/minimap2) and iterative cluster merging
- - Unpolished [POA](https://github.com/rvaser/spoa) sequence generation
+ - Polished [POA](https://github.com/rvaser/spoa) sequence generation, using a QV guided consensus approach
 
 **Input**
 The input file for *cluster* is one FLNC file:
  - `<movie>.flnc.bam` or `merged.flnc.xml`
 
 **Output**
-The following output files of *cluster* contain unpolished isoforms:
+The following output files of *cluster* contain polished isoforms:
  - `<prefix>.bam`
- - `<prefix>.fasta`
+ - `<prefix>.hq.fasta.gz` with predicted accuracy ≥ 0.99
+ - `<prefix>.lq.fasta.gz` with predicted accuracy < 0.99
  - `<prefix>.bam.pbi`
  - `<prefix>.transcriptset.xml`
 
 Example invocation:
 
-    $ isoseq3 cluster merged.flnc.xml unpolished.bam --verbose
-
-### Step 5 - Serial Polishing
-The algorithm behind *polish* is the *arrow* model that also used for CCS
-generation and polishing of de-novo assemblies.
-
-**Input**
-The input files for *polish* are:
- - `<unpolished>.bam` or `<unpolished>.transcriptset.xml`
- - `<movieX>.subreadset.xml` or `merged.subreadset.xml`
-
-**Output**
-The following output files of *polish* contain polished isoforms:
- - `<prefix>.bam`
- - `<prefix>.transcriptset.xml`
- - `<prefix>.hq.fasta.gz` with predicted accuracy ≥ 0.99
- - `<prefix>.lq.fasta.gz` with predicted accuracy < 0.99
- - `<prefix>.hq.fastq.gz` with predicted accuracy ≥ 0.99
- - `<prefix>.lq.fastq.gz` with predicted accuracy < 0.99
-
-Example invocation:
-
-    $ isoseq3 polish unpolished.bam merged.subreadset.xml polished.bam
-
-### Alternative Step 4/5 - Parallel Polishing
-Polishing can be massively parallelized on multiple servers by splitting
-the `unpolished.bam` file.
-Split BAM files can be generated by *cluster*.
-
-    $ isoseq3 cluster merged.flnc.xml unpolished.bam --verbose --split-bam 24
-
-This will create up to 24 output BAM files:
-
-    unpolished.0.bam
-    unpolished.1.bam
-    ...
-
-Each of those `unpolished.<X>.bam` files can be polished in parallel:
-
-    $ isoseq3 polish unpolished.0.bam sample.subreadset.xml polished.0.bam
-    $ isoseq3 polish unpolished.1.bam sample.subreadset.xml polished.1.bam
-    $ ...
+    $ isoseq3 cluster merged.flnc.xml polished.bam --verbose --use-qvs
 
 ## Real-world example
 This is an example of an end-to-end cmd-line-only workflow to get from
@@ -222,10 +176,9 @@ subreads to polished isoforms:
     $ wget https://downloads.pacbcloud.com/public/dataset/RC0_1cell_2017/m54086_170204_081430.subreadset.xml
 
     $ ccs --version
-    ccs 3.1.0 (commit v3.1.0)
+    ccs 4.0.0
 
-    $ ccs m54086_170204_081430.subreads.bam m54086_170204_081430.ccs.bam \
-          --noPolish --minPasses 1 --maxPoaCoverage 10
+    $ ccs m54086_170204_081430.subreads.bam m54086_170204_081430.ccs.bam --min-rq 0.9
 
     $ cat primers.fasta
     >primer_5p
@@ -237,7 +190,7 @@ subreads to polished isoforms:
     lima 1.9.0 (commit v1.9.0)
 
     $ lima m54086_170204_081430.ccs.bam primers.fasta m54086_170204_081430.fl.bam \
-           --isoseq --no-pbi --peek-guess
+           --isoseq --peek-guess
 
     $ ls m54086_170204_081430.fl*
     m54086_170204_081430.fl.json         m54086_170204_081430.fl.lima.summary
@@ -252,7 +205,7 @@ subreads to polished isoforms:
     m54086_170204_081430.flnc.bam.pbi               m54086_170204_081430.flnc.report.csv
     m54086_170204_081430.flnc.consensusreadset.xml
 
-    $ isoseq3 cluster m54086_170204_081430.flnc.bam unpolished.bam --verbose
+    $ isoseq3 cluster m54086_170204_081430.flnc.bam polished.bam --verbose --use-qvs
     Read BAM                 : (197791) 4s 20ms
     Convert to reads         : 1s 431ms
     Sort Reads               : 56ms 947us
@@ -266,24 +219,10 @@ subreads to polished isoforms:
     Write output             : 1s 134ms
     Complete run time        : 4m 32s
 
-    $ ls unpolished*
-    unpolished.bam  unpolished.bam.pbi  unpolished.cluster  unpolished.fasta  unpolished.transcriptset.xml
-
-    $ isoseq3 polish unpolished.bam m54086_170204_081430.subreadset.xml polished.bam --verbose
-    14561
-
     $ ls polished*
-    polished.bam                 polished.hq.fastq.gz
-    polished.bam.pbi             polished.lq.fasta.gz
-    polished.cluster_report.csv  polished.lq.fastq.gz
-    polished.hq.fasta.gz         polished.transcriptset.xml
-
-Or run *isoseq3 cluster* it in split mode and `isoseq3 polish` in parallel:
-
-    $ isoseq3 cluster m54086_170204_081430.flnc.bam unpolished.bam --split-bam 24
-    $ isoseq3 polish unpolished.0.bam m54086_170204_081430.subreadset.xml polished.0.bam
-    $ isoseq3 polish unpolished.1.bam m54086_170204_081430.subreadset.xml polished.1.bam
-    $ ...
+    polished.bam       polished.hq.fasta.gz
+    polished.bam.pbi   polished.lq.fasta.gz
+    polished.cluster   polished.transcriptset.xml
 
 ## DISCLAIMER
 

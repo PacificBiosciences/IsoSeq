@@ -37,9 +37,13 @@ Each sequencing run is processed by [*ccs*](https://github.com/PacificBioscience
 to generate one representative circular consensus sequence (CCS) for each ZMW. Only ZMWs with
 at least one full pass (at least once subread with SMRT adapter on both ends) are
 used for the subsequent analysis. Polishing is not necessary
-in this step and is by default deactivated through `.
+in this step and is by default deactivated through.
 
     ccs movie.subreads.bam ccs.bam --noPolish --minPasses 1
+
+For **CCS version ≥ 4.0.0** use this call:
+
+    $ ccs movie.subreads.bam ccs.bam --skip-polish --min-passes 1 --draft-mode winpoa --disable-heuristics
 
 ### Primer removal and demultiplexing
 Removal of cDNA primers and identification of barcodes (if given) is performed using [*lima*](https://github.com/pacificbiosciences/barcoding),
