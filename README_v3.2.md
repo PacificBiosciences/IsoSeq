@@ -24,10 +24,10 @@ Please refer to our [official pbbioconda page](https://github.com/PacificBioscie
 for information on Installation, Support, License, Copyright, and Disclaimer.
 
 ## Overview
- - Workflow Overview: [high](README_v3.1.md#high-level-workflow) / [mid](README_v3.1.md#mid-level-workflow) / [low](README_v3.1.md#low-level-workflow) level
- - [Real-World Example](README_v3.1.md#real-world-example)
- - [FAQ](README_v3.1.md#faq)
- - [SMRTbell Designs](README_v3.1.md#what-smrtbell-designs-are-possible)
+ - Workflow Overview: [high](README_v3.2.md#high-level-workflow) / [mid](README_v3.2.md#mid-level-workflow) / [low](README_v3.2.md#low-level-workflow) level
+ - [Real-World Example](README_v3.2.md#real-world-example)
+ - [FAQ](README_v3.2.md#faq)
+ - [SMRTbell Designs](README_v3.2.md#what-smrtbell-designs-are-possible)
 
 ## High-level workflow
 
