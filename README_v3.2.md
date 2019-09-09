@@ -72,7 +72,7 @@ to remove spurious false positive signal.
 More information about how to name input primer(+barcode)
 sequences in this [FAQ](https://github.com/pacificbiosciences/barcoding#how-can-i-demultiplex-isoseq-data).
 
-    $ lima movieX.ccs.bam barcoded_primers.fasta movieX.fl.bam --isoseq --no-pbi --peek-guess
+    $ lima movieX.ccs.bam barcoded_primers.fasta movieX.fl.bam --isoseq --peek-guess
 
 **Example 1:**
 Following is the `primer.fasta` for the Clontech SMARTer and NEB cDNA library

@@ -52,7 +52,7 @@ which offers a specialized `--isoseq` mode.
 More information about how to name input primer(+barcode)
 sequences in this [FAQ](https://github.com/pacificbiosciences/barcoding#how-can-i-demultiplex-isoseq-data).
 
-    lima --isoseq --dump-clips --no-pbi ccs.bam primers.fasta demux.bam
+    lima --isoseq --dump-clips ccs.bam primers.fasta demux.bam
 
 The following is the `primer.fasta` for the Clontech SMARTer cDNA library prep, which is the officially recommended protocol:
 
@@ -171,7 +171,7 @@ subreads to polished isoforms.
     lima 1.7.1 (commit v1.7.1)
 
     $ time lima m54086_170204_081430.ccs.bam primers.fasta demux.bam \
-                --isoseq --no-pbi --dump-clips
+                --isoseq --dump-clips
 
     real    0m6.543s
     user    0m51.170s
