@@ -25,7 +25,9 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
  * [Version 3.0, SMRT Link 6.0](README_v3.0.md)
 
 ## Changelog
- * **3.2.0**
+ * **3.2.1**
+   * Fix a gff index 1-off bug in `collapse`
+ * 3.2.0
    * Add `collapse` step for aligned transcript BAM input
    * Enable CCS-only workflow `cluster --use-qvs`
    * Add `refine --min-polya-length`
