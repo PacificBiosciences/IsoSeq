@@ -50,12 +50,13 @@ installed via bioconda.
 For each SMRT cell a `movieX.subreads.bam` is needed for processing.
 
 ### Step 1 - Circular Consensus Sequence calling
-Each sequencing run is processed by [*ccs*](https://github.com/PacificBiosciences/unanimity)
+Each sequencing run is processed by [*ccs*](https://github.com/PacificBiosciences/ccs)
 to generate one representative circular consensus sequence (CCS) for each ZMW. Only ZMWs with
 at least one full pass (at least one subread with SMRT adapter on both ends) are
 used for the subsequent analysis. In contrast to older IsoSeq versions,
 CCS polishing is required to enable skipping of the transcript polishing.
 It is advised to use the latest CCS version 4.0.0 or newer.
+_ccs_ can be installed with `conda install pbccs`.
 
     $ ccs movieX.subreads.bam movieX.ccs.bam --min-rq 0.9
 
@@ -63,7 +64,8 @@ More info how to [easily chunk ccs](https://github.com/PacificBiosciences/ccs#ho
 
 ### Step 2 - Primer removal and demultiplexing
 Removal of primers and identification of barcodes is performed using [*lima*](https://github.com/pacificbiosciences/barcoding),
-which offers a specialized `--isoseq` mode.
+which can be installed with \
+`conda install lima` and offers a specialized `--isoseq` mode.
 Even in the case that your sample is not barcoded, primer removal is performed
 by *lima*.
 If there are more than two sequences in your `primer.fasta` file or better said
@@ -136,7 +138,8 @@ with at least 20 base pairs and removes identified tail:
     $ isoseq3 refine movieX.NEB_5p--NEB_Clontech_3p.fl.bam movieX.flnc.bam --require-polya
 
 ### Step 3b - Merge SMRT Cells
-If you used more than one SMRT cells, use `dataset` for merging.
+If you used more than one SMRT cells, use `dataset` for merging,
+which can be installed with `conda install pbcoretools`.
 Merge all of your `<movie>.flnc.bam` files:
 
     $ dataset create --type TranscriptSet merged.flnc.xml movie1.flnc.bam movie2.flnc.bam movieN.flnc.bam

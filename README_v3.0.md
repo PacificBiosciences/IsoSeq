@@ -33,11 +33,12 @@ For each cell, the `<movie>.subreads.bam` and `<movie>.subreads.bam.pbi`
 are needed for processing.
 
 ### Circular Consensus Sequence calling
-Each sequencing run is processed by [*ccs*](https://github.com/PacificBiosciences/unanimity)
+Each sequencing run is processed by [*ccs*](https://github.com/PacificBiosciences/ccs)
 to generate one representative circular consensus sequence (CCS) for each ZMW. Only ZMWs with
 at least one full pass (at least once subread with SMRT adapter on both ends) are
 used for the subsequent analysis. Polishing is not necessary
 in this step and is by default deactivated through.
+_ccs_ can be installed with `conda install pbccs`.
 
     ccs movie.subreads.bam ccs.bam --noPolish --minPasses 1
 
@@ -47,7 +48,7 @@ For **CCS version ≥ 4.0.0** use this call:
 
 ### Primer removal and demultiplexing
 Removal of cDNA primers and identification of barcodes (if given) is performed using [*lima*](https://github.com/pacificbiosciences/barcoding),
-which offers a specialized `--isoseq` mode.
+which can be installed with `conda install lima` and offers a specialized `--isoseq` mode.
 
 More information about how to name input primer(+barcode)
 sequences in this [FAQ](https://github.com/pacificbiosciences/barcoding#how-can-i-demultiplex-isoseq-data).

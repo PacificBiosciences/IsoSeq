@@ -27,6 +27,7 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
 ## Changelog
  * **3.2.1**
    * Fix a gff index 1-off bug in `collapse`
+   * We have removed implicit dependencies from the bioconda recipe. Please install `pbccs`, `lima`, and `pbcoretools` as needed.
  * 3.2.0
    * Add `collapse` step for aligned transcript BAM input
    * Enable CCS-only workflow `cluster --use-qvs`
