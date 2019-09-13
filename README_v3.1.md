@@ -1,16 +1,16 @@
 <h1 align="center"><img width="300px" src="doc/img/isoseq3.png"/></h1>
-<h1 align="center">IsoSeq 3.1</h1>
+<h1 align="center">IsoSeq v3.1</h1>
 <p align="center">Scalable De Novo Isoform Discovery</p>
 
 ***
 
-*IsoSeq3* contains the newest tools to identify transcripts in
+*IsoSeq v3.1* contains the newest tools to identify transcripts in
 PacBio single-molecule sequencing data.
-Starting in SMRT Link v6.0.0, those tools power the
-*IsoSeq3 GUI-based analysis* application.
+Starting in SMRT Link v7.0.0, those tools power the
+*IsoSeq GUI-based analysis* application.
 A composable workflow of existing tools and algorithms, combined with
 a new clustering technique, allows to process the ever-increasing yield of PacBio
-machines with similar performance to *IsoSeq1* and *IsoSeq2*.
+machines with similar performance to *IsoSeq* versions 1 and 2.
 
 ## Availability
 Latest version can be installed via bioconda package `isoseq3`.
@@ -151,7 +151,7 @@ Similarly, merge all of your **source** `<movie>.subreadset.xml` files:
     $ dataset create --type SubreadSet merged.subreadset.xml movie1.subreadset.xml movie2.subreadset.xml movieN.subreadset.xml
 
 ### Step 4 - Clustering
-Compared to previous IsoSeq approaches, *IsoSeq3* performs a single clustering
+Compared to previous IsoSeq approaches, *IsoSeq v3* performs a single clustering
 technique.
 Due to the nature of the algorithm, it can't be efficiently parallelized.
 It is advised to give this step as many coresas possible.

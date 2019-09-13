@@ -1,16 +1,16 @@
 <h1 align="center"><img width="300px" src="doc/img/isoseq3.png"/></h1>
-<h1 align="center">IsoSeq3</h1>
+<h1 align="center">IsoSeq v3</h1>
 <p align="center">Scalable De Novo Isoform Discovery</p>
 
 ***
 
-*IsoSeq3* contains the newest tools to identify transcripts in
+*IsoSeq v3* contains the newest tools to identify transcripts in
 PacBio single-molecule sequencing data.
 Starting in SMRT Link v6.0.0, those tools power the
-*IsoSeq3 GUI-based analysis* application.
+*IsoSeq GUI-based analysis* application.
 A composable workflow of existing tools and algorithms, combined with
 a new clustering technique, allows to process the ever-increasing yield of PacBio
-machines with similar performance to *IsoSeq1* and *IsoSeq2*.
+machines with similar performance to *IsoSeq* versions 1 and 2.
 
 ## Availability
 Latest version can be installed via bioconda package `isoseq3`.
@@ -46,12 +46,12 @@ called `refine`. Your custom `primers.fasta` is used in this step to detect
 concatemers.
 
 ## FAQ
-### Why IsoSeq3 and not the established IsoSeq1 or IsoSeq2?
+### Why IsoSeq v3 and not the established versions 1 or 2?
 The ever-increasing throughput of the Sequel system gave rise to the need for a
 scalable software solution that can handle millions of CCS reads, while
 maintaining sensitivity and accuracy. Internal benchmarks have shown that
-*IsoSeq3* is orders of magnitude faster than currently employed solutions and
-[SQANTI](https://bitbucket.org/ConesaLab/sqanti) attributes *IsoSeq3* a higher
+*IsoSeq v3* is orders of magnitude faster than currently employed solutions and
+[SQANTI](https://bitbucket.org/ConesaLab/sqanti) attributes *IsoSeq v3* a higher
 number of perfectly annotated isoforms:
 
 <img width="1000px" src="doc/img/isoseq3-performance.png"/>
@@ -59,9 +59,9 @@ number of perfectly annotated isoforms:
 Additional benefit, single linux binary that requires no dependencies.
 
 ### Why is the number of transcripts much lower with IsoSeq3?
-Even though we also observe fewer polished transcripts with *IsoSeq3*, the
+Even though we also observe fewer polished transcripts with *IsoSeq v3*, the
 overall quality is much higher. Most of the low-quality transcripts are lost in the
-demultiplexing step. *Isoseq1/2 classify* is too relaxed and is not filtering
+demultiplexing step. *Isoseq v1/2 classify* is too relaxed and is not filtering
 junk molecules to a satisfactory level. In fact, *lima* calls are spot on and
 effectively removes most molecules that are wrongly tagged, as in two 5' or two
 3' primers. Only a proper 5' and 3' primer pair allows to identify a full-length
@@ -89,7 +89,7 @@ whole transcriptome sample can finish clustering in minutes, whereas a single
 gene amplification of 10kb transcripts can take a couple of hours.
 
 ### Which clustering algorithm is used?
-In contrast to its predecessors, *IsoSeq3* does not rely on NP-hard clique
+In contrast to its predecessors, *IsoSeq v3* does not rely on NP-hard clique
 finding, but uses a hierarchical alignment strategy with `O(N*log(N))`.
 Recent advances in rapid alignment of long reads make this this approach
 feasible.
@@ -101,7 +101,7 @@ feasible.
 *Polish* uses up to 60 subreads to polish the cluster consensus.
 
 ### When are two reads clustered?
-*IsoSeq3* deems two reads to stem from the same transcript, if they meet
+*IsoSeq v3* deems two reads to stem from the same transcript, if they meet
 following criteria:
 
 <img width="1000px" src="doc/img/isoseq3-similar-transcripts.png"/>

@@ -1,19 +1,19 @@
 <h1 align="center"><img width="300px" src="doc/img/isoseq3.png"/></h1>
-<h1 align="center">IsoSeq 3.2</h1>
+<h1 align="center">IsoSeq v3.2</h1>
 <p align="center">Scalable De Novo Isoform Discovery</p>
 
 ***
 
-*IsoSeq3* contains the newest tools to identify transcripts in
+*IsoSeq v3.2* contains the newest tools to identify transcripts in
 PacBio single-molecule sequencing data.
-Starting in SMRT Link v6.0.0, those tools power the
-*IsoSeq3 GUI-based analysis* application.
+Starting in SMRT Link v8.0.0, those tools power the
+*IsoSeq GUI-based analysis* application.
 A composable workflow of existing tools and algorithms, combined with
 a new clustering technique, allows to process the ever-increasing yield of PacBio
-machines with similar performance to *IsoSeq1* and *IsoSeq2*.
+machines with similar performance to *IsoSeq* versions 1 and 2.
 
 Focus of version 3.2 documentation is processing of polished CCS reads,
-the latest feature of *IsoSeq3*. Processing of unpolished CCS reads with final
+the latest feature of *IsoSeq v3*. Processing of unpolished CCS reads with final
 transcript polishing is still supported, please refer to the
 [documentation of version 3.1](README_v3.1.md).
 
@@ -145,7 +145,7 @@ Merge all of your `<movie>.flnc.bam` files:
     $ dataset create --type TranscriptSet merged.flnc.xml movie1.flnc.bam movie2.flnc.bam movieN.flnc.bam
 
 ### Step 4 - Clustering
-Compared to previous IsoSeq approaches, *IsoSeq3* performs a single clustering
+Compared to previous IsoSeq approaches, *IsoSeq v3* performs a single clustering
 technique.
 Due to the nature of the algorithm, it can't be efficiently parallelized.
 It is advised to give this step as many coresas possible.

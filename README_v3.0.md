@@ -1,16 +1,16 @@
 <h1 align="center"><img width="300px" src="doc/img/isoseq3.png"/></h1>
-<h1 align="center">IsoSeq 3.0</h1>
+<h1 align="center">IsoSeq v3.0</h1>
 <p align="center">Scalable De Novo Isoform Discovery</p>
 
 ***
 
-*IsoSeq3* contains the newest tools to identify transcripts in
+*IsoSeq v3.0* contains the newest tools to identify transcripts in
 PacBio single-molecule sequencing data.
 Starting in SMRT Link v6.0.0, those tools power the
-*IsoSeq3 GUI-based analysis* application.
+*IsoSeq GUI-based analysis* application.
 A composable workflow of existing tools and algorithms, combined with
 a new clustering technique, allows to process the ever-increasing yield of PacBio
-machines with similar performance to *IsoSeq1* and *IsoSeq2*.
+machines with similar performance to *IsoSeq* versions 1 and 2.
 
 ## Availability
 Latest version can be installed via bioconda package `isoseq3`.
@@ -76,7 +76,7 @@ The following are examples for barcoded samples using a 16bp barcode followed by
 From here on, execute the following steps for each output BAM file.
 
 ### Clustering and polishing
-*IsoSeq3* wraps all tools into one fat binary.
+*IsoSeq v3* wraps all tools into one fat binary.
 
     $ isoseq3
     isoseq3 - De Novo Transcript Reconstruction
@@ -92,7 +92,7 @@ From here on, execute the following steps for each output BAM file.
         isoseq3 summarize polished.bam summary.csv
 
 #### Clustering and transcript clean up
-Compared to previous IsoSeq approaches, *IsoSeq3* performs a single clustering
+Compared to previous IsoSeq approaches, *IsoSeq v3* performs a single clustering
 technique.
 Due to the nature of the algorithm, it can't be efficiently parallelized. It is advised to give this step as many cores
 as possible. The individual steps of *cluster* are as following:
