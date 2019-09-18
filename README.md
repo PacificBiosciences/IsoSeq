@@ -25,7 +25,9 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
  * [Version 3.0, SMRT Link 6.0](README_v3.0.md)
 
 ## Changelog
- * **3.2.1**
+ * **3.2.2**
+   * Fix `polish` not generating fasta/q output. This bug was introduced in v3.2.0
+ * 3.2.1
    * Fix a gff index 1-off bug in `collapse`
    * We have removed implicit dependencies from the bioconda recipe. Please install `pbccs`, `lima`, and `pbcoretools` as needed.
  * 3.2.0
