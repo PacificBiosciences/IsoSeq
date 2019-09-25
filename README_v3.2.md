@@ -17,6 +17,9 @@ the latest feature of *IsoSeq v3*. Processing of unpolished CCS reads with final
 transcript polishing is still supported, please refer to the
 [documentation of version 3.1](README_v3.1.md).
 
+**Attention:** Version 3.2 dropped support of RS II data.
+Please use version 3.1 for RS II data with `conda install isoseq3=3.1`
+
 ## Availability
 Latest version can be installed via bioconda package `isoseq3`.
 
