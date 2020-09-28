@@ -201,64 +201,36 @@ The following output files of *dedup* contain polished isoforms:
 
 Example invocation:
 
-    $ isoseq dedup fltnc.fofn dedup.fltnc.bam --verbose
+    $ isoseq dedup fltnc.fofn dedup.bam --verbose
 
-<!-- ## Real-world example
-This is an example of an end-to-end cmd-line-only workflow to get from
-subreads to polished isoforms:
+## Real-world example
+This is an example of an end-to-end cmd-line-only workflow:
 
-    $ wget https://downloads.pacbcloud.com/public/dataset/RC0_1cell_2017/m54086_170204_081430.subreads.bam
-    $ wget https://downloads.pacbcloud.com/public/dataset/RC0_1cell_2017/m54086_170204_081430.subreads.bam.pbi
-    $ wget https://downloads.pacbcloud.com/public/dataset/RC0_1cell_2017/m54086_170204_081430.subreadset.xml
+    # Download HiFi reads
+    $ wget https://downloads.pacbcloud.com/public/dataset/ISMB_workshop/singlecell/ccs.bam
 
-    $ ccs --version
-    ccs 4.0.0
+    # Download primers
+    $ wget https://downloads.pacbcloud.com/public/dataset/ISMB_workshop/singlecell/primers.fasta
 
-    $ ccs m54086_170204_081430.subreads.bam m54086_170204_081430.ccs.bam --min-rq 0.9
-
-    $ cat primers.fasta
-    >primer_5p
-    AAGCAGTGGTATCAACGCAGAGTACATGGGG
-    >primer_3p
-    AAGCAGTGGTATCAACGCAGAGTAC
-
+    # Check lima version to be >= 2.0.0
     $ lima --version
-    lima 1.9.0 (commit v1.9.0)
+    lima 2.0.0 (commit v2.0.0)
 
-    $ lima m54086_170204_081430.ccs.bam primers.fasta m54086_170204_081430.fl.bam \
-           --isoseq --peek-guess
+    # Check isoseq3 version to be >= 3.4.0
+    $ isoseq3 --version
+    isoseq3 3.4.0 (commit v3.4.0)
 
-    $ ls m54086_170204_081430.fl*
-    m54086_170204_081430.fl.json         m54086_170204_081430.fl.lima.summary
-    m54086_170204_081430.fl.lima.clips   m54086_170204_081430.fl.primer_5p--primer_3p.bam
-    m54086_170204_081430.fl.lima.counts  m54086_170204_081430.fl.primer_5p--primer_3p.subreadset.xml
-    m54086_170204_081430.fl.lima.report
+    # Primer removal
+    $ lima --isoseq ccs.bam primers.fasta output.bam
 
-    $ isoseq refine m54086_170204_081430.fl.primer_5p--primer_3p.bam primers.fasta m54086_170204_081430.flnc.bam
+    # Clip UMI and cell barcode
+    $ isoseq3 tag output.5p--3p.bam flt.bam --design T-8U-12B
 
-    $ ls m54086_170204_081430.flnc.*
-    m54086_170204_081430.flnc.bam                   m54086_170204_081430.flnc.filter_summary.json
-    m54086_170204_081430.flnc.bam.pbi               m54086_170204_081430.flnc.report.csv
-    m54086_170204_081430.flnc.consensusreadset.xml
+    # Remove poly(A) tails and concatemer
+    $ isoseq3 refine flt.bam primers.fasta fltnc.bam --require-polya
 
-    $ isoseq cluster m54086_170204_081430.flnc.bam polished.bam --verbose --use-qvs
-    Read BAM                 : (197791) 4s 20ms
-    Convert to reads         : 1s 431ms
-    Sort Reads               : 56ms 947us
-    Aligning Linear          : 2m 5s
-    Read to clusters         : 9s 432ms
-    Aligning Linear          : 54s 288ms
-    Merge by mapping         : 36s 138ms
-    Consensus                : 30s 126ms
-    Merge by mapping         : 5s 418ms
-    Consensus                : 3s 597ms
-    Write output             : 1s 134ms
-    Complete run time        : 4m 32s
-
-    $ ls polished*
-    polished.bam       polished.hq.fasta.gz
-    polished.bam.pbi   polished.lq.fasta.gz
-    polished.cluster   polished.transcriptset.xml -->
+    # Deduplicate transcripts from the identical molecule
+    $ isoseq3 dedup fltnc.bam dedup.bam --log-level INFO
 
 ## DISCLAIMER
 
