@@ -6,7 +6,22 @@ nav_order: 99
 
 # Version changelog
 
- * **3.4.0**
+ * **3.7.0**
+   * Adding `bcstats`, `correct`, and `groupdedup` to CLI
+   * `bcstats` emits frequency statistics for 10x barcodes
+   * `correct` uses a truth-set to correct sequencing errors in cell barcodes
+   * `groupdedup` provides substantial performance improvements over dedup
+   * Support SEGMENT read type
+
+ * 3.6.0
+   * Adding `tag` and `dedup` to CLI
+
+ * 3.5.0
+   * SMRT Link release 11.0
+   * Remove support for CLR data and disable `polish` step
+   * Enable `cluster --use-qvs` as always on
+
+ * 3.4.0
    * SMRT Link release 10.0.0
    * Add support for UMI and cell barcode handling, by adding `tag` and `dedup`
    * Add `refine --min-rq` to support RQ filtering for unfiltered
@@ -22,7 +37,7 @@ nav_order: 99
  * 3.2.1
    * Fix a gff index 1-off bug in `collapse`
    * We have removed implicit dependencies from the bioconda recipe. Please
-     install `pbccs`, `lima`, and `pbcoretools` as needed.
+     install `pbccs`, `lima`, and `pbcoretools` as needed
 
  * 3.2.0
    * **`polish` dropped support for RS II datasets!**
@@ -31,7 +46,7 @@ nav_order: 99
    * Add `refine --min-polya-length`
    * Add `cluster --singletons` to output unclustered FLNCs; potential sample
      prep artifacts!
-   * Fix minimap2 bugs. Outputs might change slightly.
+   * Fix minimap2 bugs. Outputs might change slightly
 
  * 3.1.2
    * Reduce `polish` memory footprint
@@ -44,4 +59,4 @@ nav_order: 99
  * 3.1.0
    * We outsourced the poly(A) tail removal and concatemer detection into a new
      tool called `refine`. Your custom `primers.fasta` is used in this step to
-     detect concatemers.
+     detect concatemers
