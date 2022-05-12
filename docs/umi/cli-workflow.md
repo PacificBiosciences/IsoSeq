@@ -135,10 +135,54 @@ If you used more than one SMRT cells, merge all of your `<movie>.fltnc.bam` file
 
     $ ls movie1.fltnc.bam movie2.fltnc.bam movieN.fltnc.bam > fltnc.fofn
 
-## Step 5 - Deduplication
+
+## Step 5 - Cell Barcode Correction
+This step identifies 10x cell barcode errors and correct them. The tool uses the 10x cell barcode whitelist to reassign erroneous barcodes based on edit distance.
+
+
+**Method**
+
+First, the *correct* tool builds a Locality-Sensitive Hashing (LSH) index over the 10x whitelist barcode subsequences.
+In the second step, *correct* uses the LSH index to map raw input barcodes to their nearest barcodes in the truth-set.
+
+For each input HiFI read containing a 10x cell barcode:
+ -  If the barcode is in the whitelist, it is unchanged.
+ -  If the barcode is not found in the whitelist, the index is queried for the closest match in the whitelist.
+ -  Edit distance is calculated between all retrieved whitelist cell barcodes and the input barcode.
+ -  The barcode with the lowest edit distance and lowest hamming distance is output.
+ -  By default, if the edit distance between the cell barcode and whitelist barcode is > 2, the read is marked as failing.
+ -  If no candidates were found, the barcode is unchanged, and the read is marked as failing.
+
+**Input** The input file for correct is one FLTNC file:
+ -  <movie>.fltnc.bam
+
+**Output** The following output files of correct contain reads with corrected cell barcodes:
+ -  <prefix>.bam
+ -  <prefix>.bam.pbi
+
+Example invocation:
+    $ isoseq correct --barcodes barcode_set.txt flnc.bam flnc.corrected.bam
+
+
+## Step 6 - Deduplication
 This step performs PCR deduplicatation via clustering by UMI and cell barcodes (if available).
-After deduplication, *dedup* generates one consensus sequence per founder molecule,
-using a QV guided consensus approach.
+
+We provide two methods: *dedup* and *groupdedup*.
+
+They perform nearly identical functionality. The key difference is that *groupdedup* only deduplicates
+reads sharing a cell barcode and *groupdedup* requires both barcode correction with the *correct* tool and sorting by cell barcode (tag "CB").
+(Sorting a BAM by cell barcode may be efficiently accomplished by `samtools sort -t CB`.)
+
+This is because sequencing errors introduce erroneous barcodes, yielding spurious reads.
+*dedup* allows for barcode errors through pairwise barcode alignment, but *groupdedup* assumes that barcodes are correct.
+Performing this correction step allows this faster *groupdedup* step to reasonably make this assumption while
+also allowing for mismatches using the index.
+
+This can provide over 200x speed-ups, as well as substantially reducing RAM requirements.
+
+
+After deduplication, *dedup* and *groupdedup* generate one consensus sequence per founder molecule,
+using a QV guided consensus.
 
 **Method**
 
@@ -148,10 +192,15 @@ Perform all vs all comparison and cluster two reads if:
  * pairwise concordance is at least 97%
  * alignment starts/ends within 5 bp of the other read
  * no more than 5 bps are deleted or inserted in a window of 20 bp (like in isoseq cluster)
+ * *groupdedup* only: these reads have the same cell barcode
 
 **Input**
 The input file for *dedup* is one FLTNC file:
  - `<movie>.fltnc.bam` or `fltnc.fofn`
+
+The input file for *groupdedup* is one FLTNC file, sorted by 10x cell barcode tag:
+ - `<movie>.tagsort.bam`
+
 
 **Output**
 The following output files of *dedup* contain polished isoforms:
@@ -161,6 +210,14 @@ The following output files of *dedup* contain polished isoforms:
  - `<prefix>.bam.pbi`
  - `<prefix>.transcriptset.xml`
 
-Example invocation:
+The following output files of *groupdedup* contain polished isoforms:
+ - `<prefix>.bam`
+ - `<prefix>.bam.pbi`
+
+Example invocation (*dedup*):
 
     $ isoseq dedup fltnc.fofn dedup.bam --verbose
+
+Example invocation (*groupdedup*):
+
+    $ isoseq groupdedup fltnc.tagsort.bam dedup.bam
