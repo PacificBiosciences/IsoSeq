@@ -5,7 +5,7 @@ title: Barcode Statistics
 nav_order: 7
 ---
 
-***
+## Barcode Statistics Documentation
 
 `isoseq3 bcstats` emits statistics for each barcode:
 
@@ -26,4 +26,3 @@ isoseq3 bcstats --json sample.bcstats.json -o sample.bcstats.tsv sample.bam
 In default behavior, the program only emits stats on group barcodes.
 Adding `--umi` will cause stats for the full molecular barcodes to be emitted as well.
 
-<img src="../../doc/img/isoseq.png"/>

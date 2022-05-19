@@ -1,7 +1,7 @@
 ---
 layout: default
 parent: Single cell
-title: Barcode Correction Documentation via correct
+title: Barcode Correction
 nav_order: 6
 ---
 
@@ -59,4 +59,3 @@ We also add or update the following tags:
 |gp| int     | Group Passes | Flag specifying whether or not the barcode for the given read passes filters. 1 for passing, 0 for failing. |
 |nb| int     | Number of Barcode Mismatches | Edit distance from the barcode for the read to the barcode to which it was reassigned. This is -1 if the barcode could not be corrected, and the edit distance otherwise. (This means 0 for an exact match.) |
 
-<img src="../../doc/img/isoseq.png"/>
