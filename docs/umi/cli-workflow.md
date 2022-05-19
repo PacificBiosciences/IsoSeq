@@ -154,11 +154,11 @@ For each input HiFI read containing a 10x cell barcode:
  -  If no candidates were found, the barcode is unchanged, and the read is marked as failing.
 
 **Input** The input file for correct is one FLTNC file:
- -  <movie>.fltnc.bam
+ - `<movie>.fltnc.bam`
 
 **Output** The following output files of correct contain reads with corrected cell barcodes:
- -  <prefix>.bam
- -  <prefix>.bam.pbi
+ - `<prefix>.bam`
+ - `<prefix>.bam.pbi`
 
 Example invocation:
     $ isoseq correct --barcodes barcode_set.txt flnc.bam flnc.corrected.bam
