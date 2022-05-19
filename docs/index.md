@@ -32,5 +32,3 @@ Version **3.7.0**: [Full changelog here](/changelog)
 New documentation is up, a 1:1 port from the original GitHub docs with minor
 enhancements.
 
-## Get started
-If you are new to demultiplexing barcoded samples, check out the [Get Started guide](/get-started).
