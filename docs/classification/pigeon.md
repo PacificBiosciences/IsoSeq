@@ -35,4 +35,4 @@ The CLI workflow is described [here](/workflow).
 The latest version of `pigeon` is distributed through [BioConda](https://github.com/PacificBiosciences/pbbioconda).
 
 ## Versions
-Version **0.1.0**: [Full changelog here](/change-log)
+Version **0.1.0**: [Full changelog here](/pigeon-changelog)
