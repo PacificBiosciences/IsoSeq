@@ -7,6 +7,14 @@ nav_order: 3
 
 ## CLI Workflow
 
+### Map reads to a reference genome
+
+Map reads using _pbmm2_.
+
+```
+pbmm2 align --preset ISOSEQ --sort <input.bam> <ref.fa> <mapped.bam>
+```
+
 ### Collapse transcripts into unique isoforms
 
 Collapse mapped reads into unique isoforms using _isoseq collapse_.
