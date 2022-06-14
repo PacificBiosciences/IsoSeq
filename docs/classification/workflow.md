@@ -31,12 +31,14 @@ Sort the transcript GFF file output from _isoseq collapse_.
 pigeon sort <collapse.gff> -o sorted.gff
 ```
 
-### Index the genome annotation
+### Index the reference files
 
-Index the genome annotation file before classification.
+Index the genome annotation, CAGE peak, and intropolis files before classification.
 
 ```
 pigeon index <gencode.annotation.gtf>
+pigeon index <cage.bed>
+pigeon index <intropolis.tsv>
 ```
 
 ### Classify Isoforms

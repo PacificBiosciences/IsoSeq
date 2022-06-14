@@ -10,8 +10,8 @@ nav_order: 5
 ### Classification File
 
 The _classify_ and _filter_ tools output a txt file containing isoform annotation information.
-The output from _classify_ and _filter_ will have the extentions `_classification.txt` or `_classification.filtered_lite_classification.txt` respectively.
-Both of these outputs follow the SQANTI3 [classification file](https://github.com/ConesaLab/SQANTI3/wiki/Understanding-the-output-of-SQANTI3-QC#glossary-of-classification-file-columns-classificationtxt) convention with the expection of two added columns.
+The output from _classify_ and _filter_ will have the extensions `_classification.txt` or `_classification.filtered_lite_classification.txt` respectively.
+Both of these outputs follow the SQANTI3 [classification file](https://github.com/ConesaLab/SQANTI3/wiki/Understanding-the-output-of-SQANTI3-QC#glossary-of-classification-file-columns-classificationtxt) convention with the exception of two added columns.
 
 | Column | Description |
 | ------ | ----------- |
