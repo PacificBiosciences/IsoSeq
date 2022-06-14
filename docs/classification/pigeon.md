@@ -5,6 +5,10 @@ title: Pigeon
 nav_order: 1
 ---
 
+<p align="center">
+  <img src="../img/pigeon-card.png" alt="pigeon logo" width="650px"/>
+</p>
+
 ## Pigeon
 
 _Pigeon_ is a PacBio Transcript Toolkit that contains tools to classify and filter full-length transcript isoforms into [categories](/categories) against a reference annotation. _Pigeon_ is based off of [SQANTI3](https://github.com/ConesaLab/SQANTI3) and the output is compatible with downstream analysis with Seurat.
