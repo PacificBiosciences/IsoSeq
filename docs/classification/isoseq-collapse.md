@@ -30,20 +30,20 @@ isoseq3 collapse <mapped.bam> <collapse.gff>
 ### Ouptut
 
 - `collapse.gff` contains the collapsed isoforms in gff format.
-- `*.abundance.txt` contains information about the number of FLNC reads supporting each isoform and cell barcodes if applicable.
+- `*.abundance.txt` contains information about the number of FLNC reads supporting each isoform and cell barcodes if applicable. Each unique isoform has the ID format PB.X.Y, while `count_fl` denotes the number of unique molecules (after UMI deduplication) supporting the isoform, and `fl_assoc` denotes the number of reads (before UMI deduplication) supporting it. `cell_barcodes` shows the list of single cell barcodes from which the reads came from, if applicable.
     ```
     pbid	count_fl	fl_assoc	cell_barcodes
     PB.1.1	2	2	ATCCATTCACCTCTGT,ATCGGCGCAGAGATGC
     PB.2.1	1	1	CGGACACCATTGCCGG
     PB.3.1	1	1	ACTTCGCGTCTAACTG
     ```
-- `*.group.txt` contains the grouped input by isoform.
+- `*.group.txt` shows the grouping of redundant isoforms (based on mapped exonic structures), where the read names `molecule/<number>` denote a unique molecule after UMI deduplication.
     ```
     PB.1.1	molecule/7343975,molecule/7738347
     PB.2.1	molecule/14601188
     PB.3.1	molecule/3998518
     ```
-- `*.read_stat.txt` contains the isoforms that reads are assigned to.
+- `*.read_stat.txt` shows the assignment of each read (before UMI deduplication) to the final, unique isoforms PB.X.Y. Read names with the format `<movie>/<zmw>/ccs` indicate a CCS read, whereas `<movie>/<zmw>/ccs/<start>_<end>` further denotes a segment of a CCS read (S-read), likely as a result of segmentation (using, for example, [Skera](http://skera.how/)) of concatenated single cell libraries.
     ```
     id	pbid
     m64012_220421_000242/120719489/ccs/10460_11196	PB.1.1

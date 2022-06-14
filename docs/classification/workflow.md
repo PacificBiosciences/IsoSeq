@@ -33,7 +33,7 @@ pigeon sort <collapse.gff> -o sorted.gff
 
 ### Index the reference files
 
-Index the genome annotation, CAGE peak, and intropolis files before classification.
+Index the genome annotation, (optional) CAGE peak, and (optional) intropolis files before classification.
 
 ```
 pigeon index <gencode.annotation.gtf>
