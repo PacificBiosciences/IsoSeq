@@ -7,7 +7,7 @@ nav_order: 2
 
 ## IsoSeq collapse
 
-After reads are mapped to a reference genome, transcripts can be collapsed into unique isoforms using `isoseq3 collapse`. Mapped IsoSeq reads are collapsed to produce a set of unique isoforms for each locus of the genome in GFF format, along with a secondary files containing information about the number of processed reads supporting each unique isoform.
+After transcript sequences are mapped to a reference genome, `isoseq3 collapse` can be used to collapse redundant transcripts (based on exonic structures) into unique isoforms. Output consists of unique isoforms in GFF format and secondary files containing information about the number of reads supporting each unique isoform.
 
 ### Collapse Examples
 
