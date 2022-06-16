@@ -43,13 +43,13 @@ pigeon index <intropolis.tsv>
 
 ### Classify Isoforms
 
-Classify isoforms into [categories](/categories) using the base required input.
+Classify isoforms into [categories](/classification/categories) using the base required input.
 
 ```
 pigeon classify <sorted.gff> <annotations.gtf> <reference.fa>
 ```
 
-Alternatively, classify isoforms using supplemental reference information. Details in [pigeon input](/pigeon-input).
+Alternatively, classify isoforms using supplemental reference information. Details in [pigeon input](/classification/pigeon-input).
 
 ```
 pigeon classify <sorted.gff> <annotations.gtf> <reference.fa> --fl abundance.txt --cage-peak refTSS.bed --poly-a polyA.list
