@@ -29,7 +29,7 @@ The _pigeon_ tool is in beta. Expect continual changes, which may change the alg
 ## Input
 
 - Collapsed isoforms in GFF format from [IsoSeq collapse](/classification/isoseq-collapse).
-- Several reference input files required across all steps of the _pigeon_ workflow are described [here](/classification/pigon-input).
+- Several reference input files required across all steps of the _pigeon_ workflow are described [here](/classification/pigeon-input).
 
 ## Execution
 
