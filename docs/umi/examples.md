@@ -23,7 +23,7 @@ This is an example of an end-to-end cmd-line-only workflow:
     $ isoseq3 --version
     isoseq3 3.7.0 (commit v3.7.0)
 
-    # Primer removal
+    # cDNA primer removal and read orientation
     $ lima --isoseq ccs.bam primers.fasta output.bam
 
     # Clip UMI and cell barcode
@@ -32,10 +32,9 @@ This is an example of an end-to-end cmd-line-only workflow:
     # Remove poly(A) tails and concatemer
     $ isoseq3 refine flt.bam primers.fasta fltnc.bam --require-polya
 
-    # Correct Barcodes
+    # Correct single cell barcodes based on an include list
     $ isoseq3 correct --barcodes include.txt fltnc.bam corrected.bam
 
-    $samtools sort -t CB corrected.bam -o corrected.sorted.bam
-
-    # Deduplicate transcripts from the identical molecule
+    # Deduplicate reads based on UMIs
+    $ samtools sort -t CB corrected.bam -o corrected.sorted.bam
     $ isoseq3 groupdedup corrected.bam dedup.bam --log-level INFO

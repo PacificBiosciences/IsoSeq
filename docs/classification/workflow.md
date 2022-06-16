@@ -15,12 +15,12 @@ Map reads using _pbmm2_.
 pbmm2 align --preset ISOSEQ --sort <input.bam> <ref.fa> <mapped.bam>
 ```
 
-### Collapse transcripts into unique isoforms
+### Collapse into unique isoforms
 
-Collapse mapped reads into unique isoforms using _isoseq collapse_.
+Collapse redundant transcripts into unique isoforms based on exonic structures using _isoseq collapse_.
 
 ```
-isoseq3 collapse <mapped.bam> <collapse.gff>
+isoseq3 collapse <mapped.bam> <collapsed.gff>
 ```
 
 ### Sort input transcript GFF
@@ -28,7 +28,7 @@ isoseq3 collapse <mapped.bam> <collapse.gff>
 Sort the transcript GFF file output from _isoseq collapse_.
 
 ```
-pigeon sort <collapse.gff> -o sorted.gff
+pigeon sort <collapsed.gff> -o sorted.gff
 ```
 
 ### Index the reference files
@@ -46,7 +46,7 @@ pigeon index <intropolis.tsv>
 Classify isoforms into [categories](/categories) using the base required input.
 
 ```
-pigeon classify <isoforms.gff> <annotations.gtf> <reference.fa>
+pigeon classify <sorted.gff> <annotations.gtf> <reference.fa>
 ```
 
 Alternatively, classify isoforms using supplemental reference information. Details in [pigeon input](/pigeon-input).
