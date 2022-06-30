@@ -91,7 +91,18 @@ pigeon report <classification.filtered_lite_classification.txt> <saturation.txt>
 Output files that are compatible with the downstream [Seurat](https://satijalab.org/seurat/) analysis package.
 
 ```
-pigeon make-seurat --dedup molecules.fasta --group group.txt -d output_dir
+pigeon make-seurat --dedup <dedup.fasta> --group <collapse.group.txt> -d <output_dir> <classification.filtered_lite_classification.txt>
 ```
 
+The `dedup.fasta` file is obtained after running `isoseq3 groupdedup` or `isoseq3 dedup`. The `collapse.group.txt` file is obtained after running `isoseq3 collapse`. 
+
+The output will consist of:
+```
+Make-seurat output:
+<output_dir>/annotated.info.csv
+<output_dir>/info.csv
+<output_dir>/isoforms_seurat/barcodes.tsv
+<output_dir>/isoforms_seurat/genes.tsv
+<output_dir>/isoforms_seurat/matrix.mtx
+```
 
