@@ -63,6 +63,21 @@ Filter isoforms from the classification output.
 pigeon filter <classification.txt>
 ```
 
+If you want to generate a filtered GFF, you need to also provide the GFF that was used as input to `pigeon classify`
+
+```
+pigeon filter <classification.txt> --isoforms <sorted.gff>
+```
+
+The expected output consists of:
+```
+*.filtered_lite_classification.txt
+*.filtered_lite_junctions.txt
+*.filtered_lite_reasons.txt
+*.sorted.filtered_lite.gff (only if --isoforms is used)
+```
+
+
 ### Report gene saturation
 
 Gene saturation can be determined by subsampling the classification output and determining the number of unique genes at each subsample size.
