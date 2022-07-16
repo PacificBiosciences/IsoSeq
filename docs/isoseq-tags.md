@@ -8,12 +8,12 @@ nav_order: 8
 
 | Tag | Type | Short Name | Relevant Executable | Value |
 | --- | ---- | ---------- | ----- | ----- |
-|CR| string  | Cell Raw | `correct` | Raw (uncorrected) barcode. |
-|CB| string  | Cell Barcode | `correct` | Corrected cell/group barcode. |
-|UR| string  | UMI Raw | None currently | Molecular/UMI barcode. |
-|UB| string  | UMI Barcode | None currently | Corrected molecular/UMI barcode. |
-|XM| string  | UMI Barcode | `tag` | Corrected molecular/UMI barcode. |
-|XC| string  | Cell Barcode | `tag`, `correct` | Original Cell barcode. |
+|CR| string  | Cell Barcode  | `correct` | Raw (uncorrected) cell barcode |
+|CB| string  | Cell Barcode  | `correct` | Corrected cell barcode |
+|UR| string  | UMI | None currently | Raw UMI |
+|UB| string  | UMI | None currently | Corrected UMI |
+|XM| string  | UMI | `tag`, `correct` | Raw (after `tag`) or corrected (after `correct`) UMI |
+|XC| string  | Cell Barcode | `tag`, `correct` | Raw cell barcode |
 |XA| string  | tag name order| `tag`, `correct` | Order of tags names. |
 |nc| int     | Number of Candidates | `correct` | Number of candidate barcodes. |
 |oc| string  | Other Choices | `correct` | String representation of other potential barcodes. |
