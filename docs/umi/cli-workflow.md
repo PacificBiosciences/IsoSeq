@@ -31,8 +31,9 @@ The `hifi_reads.bam` contains only HiFi reads, with predicted accuracy ≥Q20. N
 additional filtering is required.
 
 The `reads.bam` contains one representative sequence per productive ZMW,
-irrespective of quality and passes. Do not forget to use `isoseq3 refine
---min-rq 0.99` in step 3!
+irrespective of quality and passes. 
+
+We recommend using only HiFi reads!
 
 
 ## Step 2 - Primer removal and demultiplexing
@@ -47,42 +48,31 @@ to remove spurious false positive signal.
 More information about how to name input primer(+barcode)
 sequences in this [lima Iso-Seq FAQ](https://lima.how/faq/isoseq).
 
-    $ lima movieX.ccs.bam barcoded_primers.fasta movieX.fl.bam --isoseq --peek-guess
+    $ lima movieX.ccs.bam primers.fasta movieX.fl.bam --isoseq --peek-guess
 
 **Example 1:**
-Following is the `primer.fasta` for the Clontech SMARTer and NEB cDNA library
-prep, which are the officially recommended protocols:
+If using the 10x 3' kit, the primers are below:
 
-    >NEB_5p
-    GCAATGAAGTCGCAGGGTTGGG
-    >Clontech_5p
-    AAGCAGTGGTATCAACGCAGAGTACATGGGG
-    >NEB_Clontech_3p
-    GTACTCTGCGTTGATACCACTGCTT
+    >5p
+    AAGCAGTGGTATCAACGCAGAGTACATGGG
+    >3p
+    AGATCGGAAGAGCGTCGTGTAG
 
 **Example 2:**
-Following are examples for barcoded primers using a 16bp barcode followed by
-Clontech primer:
+If using the 10x 5' kit, the primers are below:
 
-    >primer_5p
-    AAGCAGTGGTATCAACGCAGAGTACATGGGG
-    >brain_3p
-    CGCACTCTGATATGTGGTACTCTGCGTTGATACCACTGCTT
-    >liver_3p
-    CTCACAGTCTGTGTGTGTACTCTGCGTTGATACCACTGCTT
+    >5p
+    CTACACGACGCTCTTCCGATCT
+    >3p
+    GTACTCTGCGTTGATACCACTGCTT
 
 *Lima* will remove unwanted combinations and orient sequences to 5' → 3' orientation.
 
 Output files will be called according to their primer pair. Example for
 single sample libraries:
 
-    movieX.fl.NEB_5p--NEB_Clontech_3p.bam
+    movieX.fl.5p--3p.bam
 
-If your library contains multiple samples, execute the following workflow
-for each primer pair:
-
-    movieX.fl.primer_5p--brain_3p.bam
-    movieX.fl.primer_5p--liver_3p.bam
 
 ## Step 3 - Tag
 Tags, such as UMIs and cell barcodes, have to be clipped from the reads and
@@ -99,7 +89,13 @@ The following output files of *tag* contain full-length tagged:
 
 Insert your own design or pick a preset:
 
-    $ isoseq tag movieX.NEB_5p--NEB_Clontech_3p.fl.bam movieX.flt.bam --design XXX
+    $ isoseq tag movieX.fl.5p--3p.bam movieX.flt.bam --design XXX
+    
+Refer to the [UMI and BC design page](https://isoseq.how/umi/umi-barcode-design.html) for how to specify `--design`.
+
+For example, the 10x 3' (v3.1) kit has a 12bp UMI and 16bp BC on the 3' end, so the design would be `--design T-12U-16B`.
+
+In contrast, the 10x 5' kit has a 16bp BC and 10bp UMI, so the design would be `--design 16B-10U-T`.
 
 ## Step 4 - Refine
 Your data now contains full-length tagged reads, but still needs to be refined by:
@@ -118,7 +114,7 @@ The following output files of *refine* contain full-length non-concatemer reads:
 
 Actual command to refine:
 
-    $ isoseq refine movieX.NEB_5p--NEB_Clontech_3p.fl.bam primers.fasta movieX.fltnc.bam
+    $ isoseq refine movieX.fl.5p--3p.bam primers.fasta movieX.fltnc.bam --require-polya
 
 If your sample has poly(A) tails, use `--require-polya`.
 This filters for FL reads that have a poly(A) tail
