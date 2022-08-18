@@ -19,6 +19,7 @@ nav_order: 8
 |oc| string  | Other Choices | `correct` | String representation of other potential barcodes. |
 |gp| int     | Group Passes | `correct` | Flag specifying whether or not the barcode for the given read passes filters. 1 for passing, 0 for failing. |
 |nb| int     | Barcode Distance | `correct` | Edit distance from the barcode for the read to the barcode to which it was reassigned. This is 0 if the barcode matches exactly, -1 if the barcode could not be rescued, and the edit distance otherwise. |
+|rc| int     | Real Cell | `correct` | Predicted real cell. This is 1 if a read is predicted to come from a real cell and 0 if predicted to be a non-real cell. |
 |ic| int     | input-consensus | `dedup`, `groupdedup` | Number of reads used to generate consensus. If less than `is`, this means that reads were down-sampled when consensus-calling. |
 |is| int     | input-sequences | `dedup`, `groupdedup` | Number of reads associated with isoform. |
 |XO| string  | X Overhang | `tag` |  Overhang sequence tag. | 

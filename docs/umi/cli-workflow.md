@@ -132,11 +132,11 @@ If you used more than one SMRT cells, merge all of your `<movie>.fltnc.bam` file
     $ ls movie1.fltnc.bam movie2.fltnc.bam movieN.fltnc.bam > fltnc.fofn
 
 
-## Step 5 - Cell Barcode Correction
-This step identifies 10x cell barcode errors and correct them. The tool uses the 10x cell barcode whitelist to reassign erroneous barcodes based on edit distance.
+## Step 5 - Cell Barcode Correction and Real Cell Identification
+This step identifies 10x cell barcode errors and corrects them. The tool uses the 10x cell barcode whitelist to reassign erroneous barcodes based on edit distance. Additionally, *correct* estimates which reads are likely to originate from a real cell and labels them using the `rc` tag.
 
 
-**Method**
+**Barcode Correction Method**
 
 First, the *correct* tool builds a Locality-Sensitive Hashing (LSH) index over the 10x whitelist barcode subsequences.
 In the second step, *correct* uses the LSH index to map raw input barcodes to their nearest barcodes in the truth-set.
@@ -149,10 +149,10 @@ For each input HiFI read containing a 10x cell barcode:
  -  By default, if the edit distance between the cell barcode and whitelist barcode is > 2, the read is marked as failing.
  -  If no candidates were found, the barcode is unchanged, and the read is marked as failing.
 
-**Input** The input file for correct is one FLTNC file:
+**Input** The input file for *correct* is one FLTNC file:
  - `<movie>.fltnc.bam`
 
-**Output** The following output files of correct contain reads with corrected cell barcodes:
+**Output** The following output files of *correct* contain reads with corrected cell barcodes:
  - `<prefix>.bam`
  - `<prefix>.bam.pbi`
 
@@ -176,6 +176,7 @@ also allowing for mismatches using the index.
 
 This can provide over 200x speed-ups, as well as substantially reducing RAM requirements.
 
+If the `rc` tag added by *correct* is present in the input, *groupdedup* and *dedup* will filter the output to only include real cells. This can be turned off using ` --keep-non-real-cells`.
 
 After deduplication, *dedup* and *groupdedup* generate one consensus sequence per founder molecule,
 using a QV guided consensus.

@@ -6,7 +6,15 @@ nav_order: 99
 
 # Version changelog
 
- * **3.7.0**
+ * **3.8.0**
+   * `collapse` allows isoforms with 5p degradation to collapse by default
+   * `--do-not-collapse-extra-5exons` added to `collapse`
+   * `collapse` max 5p and 3p distances can be set in CLI using 
+     `--max-5p-diff` and `--max-3p-diff`
+   * Real-cell annotation in `correct` using `rc` tag
+   * Real-cell filtering in `groupdedup`, `dedup`, and `collapse`
+  
+ * 3.7.0
    * Adding `bcstats`, `correct`, and `groupdedup` to CLI
    * `bcstats` emits frequency statistics for 10x barcodes
    * `correct` uses a truth-set to correct sequencing errors in cell barcodes

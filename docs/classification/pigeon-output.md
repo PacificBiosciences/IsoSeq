@@ -16,7 +16,7 @@ Both of these outputs follow the SQANTI3 [classification file](https://github.co
 | Column | Description |
 | ------ | ----------- |
 | fl_assoc | FL count associated with the isoform including PCR duplicates. |
-| cell_barcodes | Comma separated list of cell barcodes associated with the isoform. |
+| cell_barcodes | Comma separated list of unique cell barcode ids associated with the isoform. |
 
 ### Junction File
 
@@ -59,8 +59,13 @@ The _report_ tools outputs a txt file containing the read count and number of un
 The _make-seurat_ tool outputs the required files to run tertiary analysis with [Seurat](https://satijalab.org/seurat/).
 
 Files output:
- - `barcodes.tsv`
- - `genes.tsv`
- - `matrix.mtx`
- - `info.csv`
- - `annotated.info.csv`
+```
+<output_dir>/annotated.info.csv
+<output_dir>/info.csv
+<output_dir>/genes_seurat/barcodes.tsv
+<output_dir>/genes_seurat/genes.tsv
+<output_dir>/genes_seurat/matrix.mtx
+<output_dir>/isoforms_seurat/barcodes.tsv
+<output_dir>/isoforms_seurat/genes.tsv
+<output_dir>/isoforms_seurat/matrix.mtx
+```
