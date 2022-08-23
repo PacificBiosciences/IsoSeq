@@ -1,7 +1,7 @@
 ---
 layout: default
 parent: Classification
-title: Pigeon Workflow
+title: IsoSeq Collapse
 nav_order: 2
 ---
 
@@ -26,6 +26,8 @@ Collapse mapped reads into unique isoforms using _isoseq collapse_.
 ```
 isoseq3 collapse <mapped.bam> <collapse.gff>
 ```
+
+Note: `isoseq3 collapse` by default will collapse isoforms containing 5p degradation as of version `3.8.0`. To turn this off `--do-not-collapse-extra-5exons` should be used. This option is recommended for bulk IsoSeq.
 
 ### Ouptut
 

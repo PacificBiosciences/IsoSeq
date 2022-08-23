@@ -58,4 +58,5 @@ We also add or update the following tags:
 |oc| string  | Other Choices | String representation of other potential barcodes. |
 |gp| int     | Group Passes | Flag specifying whether or not the barcode for the given read passes filters. 1 for passing, 0 for failing. |
 |nb| int     | Number of Barcode Mismatches | Edit distance from the barcode for the read to the barcode to which it was reassigned. This is -1 if the barcode could not be corrected, and the edit distance otherwise. (This means 0 for an exact match.) |
+|rc| int     | Real Cell | `correct` | Predicted real cell. This is 1 if a read is predicted to come from a real cell and 0 if predicted to be a non-real cell. |
 

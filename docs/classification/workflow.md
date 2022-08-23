@@ -1,7 +1,7 @@
 ---
 layout: default
 parent: Classification
-title: Pigeon CLI Workflow
+title: Classification CLI Workflow
 nav_order: 3
 ---
 
@@ -19,8 +19,14 @@ pbmm2 align --preset ISOSEQ --sort <input.bam> <ref.fa> <mapped.bam>
 
 Collapse redundant transcripts into unique isoforms based on exonic structures using _isoseq collapse_.
 
+Single-cell IsoSeq:
 ```
 isoseq3 collapse <mapped.bam> <collapsed.gff>
+```
+
+Bulk IsoSeq:
+```
+isoseq3 collapse --do-not-collapse-extra-5exons <mapped.bam> <collapsed.gff>
 ```
 
 ### Sort input transcript GFF
@@ -101,6 +107,9 @@ The output will consist of:
 Make-seurat output:
 <output_dir>/annotated.info.csv
 <output_dir>/info.csv
+<output_dir>/genes_seurat/barcodes.tsv
+<output_dir>/genes_seurat/genes.tsv
+<output_dir>/genes_seurat/matrix.mtx
 <output_dir>/isoforms_seurat/barcodes.tsv
 <output_dir>/isoforms_seurat/genes.tsv
 <output_dir>/isoforms_seurat/matrix.mtx
