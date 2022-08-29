@@ -12,10 +12,10 @@ CCS reads
 HiFi reads
  : CCS Reads with predicted accuracy ≥ Q20
  
-Segmented reads (S-reads):
- : CCS Reads that have been segmented by [Skera](https://skera.how) based on the presence of segmentation adapters
+S-reads
+ : Segmented reads (S-reads) are CCS Reads that have been segmented by [Skera](https://skera.how) based on the presence of segmentation adapters
 
-[Skera](https://skera.how):
+[Skera](https://skera.how)
  : Tool for segmenting CCS reads based on the presence of segmentation adapters
  
 [Lima](https://lima.how)
