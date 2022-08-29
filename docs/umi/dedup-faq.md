@@ -7,20 +7,50 @@ nav_order: 5
 
 ## Dedup FAQ
 
-This FAQ explains how `isoseq3 dedup` identifies that two UMIs (+cell barcodes)
-are likely to stem from the same founder molecule.
+*NOTE:* `isoseq3 groupdedup` is now the recommended deduplication tool that replaces the older, slower `isoseq3 dedup`. However some documentation figures might still refer to the old `isoseq3 dedup` tool as reference.
 
-Following two parameters control the tresholds for comparison:
+This FAQ explains how `isoseq3 groupdedup` identifies two reads to be from the same founder molecule.
+
+
+### Adjusting maximum mismatches and shifts
+
+The following parameters control the thresholds for mismatches and shifts:
 ```
   --max-tag-mismatches      INT   Maximum number of mismatches between tags. [1]
   --max-tag-shift           INT   Tags may be shifted by at maximum of N bases. [1]
 ```
 
-If your UMI (+cell barcode) design is very short, default parameters might
+In case of unusually short designs (such as a custom UMI that is only 6bp and no cell barcodes), default parameters might
 lead to overclustering. In this case, please adjust parameters accordingly.
 
-Following an example of one founder molecule that is sequenced twice. PCR and
+The following is an example of one founder molecule that is sequenced twice. PCR and
 sequencing errors are introduced, leading to a clipped base in one of the cell
 barcodes and a substitution in the other cell barcode.
 
 <img src="../img/isoseq-dedup-faq.png"/>
+
+### Adjusting insert transcript concordance
+
+The following parameters control the thresholds for how well the inserts (in this case, transcripts) match, even when the UMIs and BCs already match:
+```
+  --min-concordance-perc    INT   Minimum insert alignment concordance in %. [97]
+  --max-insert-gaps         INT   Maximum number of insert gaps per 20 bp window. [5]
+```
+
+While rare, it is possible to have different transcript molecules share the same UMIs and BCs.
+
+### groupdedup only: cell barcode and real cells
+
+If using `isoseq3 groupdedup` (which is recommended over `isoseq3 dedup`), it can use the corrected cell barcodes from the `isoseq3 correct` step for grouping reads.
+
+However, the BAM file must first be sorted by `CB` tag:
+```
+samtools sort –t CB corrected.bam –o corrected.sorted.bam
+isoseq3 groupdedup corrected.bam dedup.bam 
+```
+
+Additionally, `isoseq3 groupdedup` can use the `rc` tag from the `isoseq3 correct` step and apply to only real cells. This can be turned off with the option below (advanced, not recommended by default):
+```
+  --keep-non-real-cells           Do not skip reads with non-real cells.
+  ```
+
