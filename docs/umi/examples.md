@@ -28,7 +28,7 @@ This is an example of an end-to-end cmd-line-only workflow:
     isoseq3 3.8.99 (commit v3.7.0-51-g37889a6)
 
     # cDNA primer removal and read orientation
-    $ lima --isoseq ccs.bam primers.fasta output.bam
+    $ lima --per-read --isoseq ccs.bam primers.fasta output.bam
 
     # Clip UMI and cell barcode
     $ isoseq3 tag output.5p--3p.bam flt.bam --design T-12U-16B
