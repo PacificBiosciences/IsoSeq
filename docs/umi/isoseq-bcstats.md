@@ -15,14 +15,17 @@ nav_order: 7
 4. Number of unique molecular barcodes matching this barcode
 5. Whether the barcode is Group/Cell barcode or a Molecular Barcode/UMI
 
-If `--json` is unset, JSON summary information is written to stderr ("/dev/stderr").
-Similarly, if '-o' is unset, output TSV information is written to stdout ("/dev/stdout").
+This tool should be run after `isoseq3 correct`.
+
 
 ```bash
 # Example:
-isoseq3 bcstats --json sample.bcstats.json -o sample.bcstats.tsv sample.bam
+isoseq3 bcstats --json sample.bcstats.json -o sample.bcstats.tsv corrected.bam
 ```
 
-In default behavior, the program only emits stats on group barcodes.
+If `--json` is unset, JSON summary information is written to stderr ("/dev/stderr").
+Similarly, if '-o' is unset, output TSV information is written to stdout ("/dev/stdout").
+
+By default, the program only emits stats on group barcodes.
 Adding `--umi` will cause stats for the full molecular barcodes to be emitted as well.
 
