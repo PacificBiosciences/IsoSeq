@@ -15,7 +15,7 @@ nav_order: 7
 4. Number of unique molecular barcodes matching this barcode
 5. Whether the barcode is Group/Cell barcode or a Molecular Barcode/UMI
 
-This tool should be run after `isoseq3 correct` to get the `rc` tag, which indicates which reads come from real cells (as opposed to ambient RNA).
+This tool should be run after `isoseq3 correct`.
 
 
 ```bash
