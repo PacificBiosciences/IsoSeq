@@ -21,11 +21,11 @@ This is an example of an end-to-end cmd-line-only workflow:
 
     # Check lima version to be >= 2.6.0
     $ lima --version
-    lima 2.6.99
+    lima 2.6.0
 
     # Check isoseq3 version to be >= 3.8.0
     $ isoseq3 --version
-    isoseq3 3.8.99 (commit v3.7.0-51-g37889a6)
+    isoseq3 3.8.0 
 
     # cDNA primer removal and read orientation
     $ lima --per-read --isoseq ccs.bam primers.fasta output.bam
