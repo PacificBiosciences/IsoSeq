@@ -27,11 +27,18 @@ than standard deduplication. This is because only reads sharing a cell barcode a
 
 ### What does Barcode Correction do?
 
-The tool takes a list of true barcodes and builds a locality-sensitive hashing (LSH) index over that set to facilitate fast nearest-neighbor queries.
+First, the *correct* tool builds a Locality-Sensitive Hashing (LSH) index over the 10x whitelist barcode subsequences.
+In the second step, *correct* uses the LSH index to map raw input barcodes to their nearest barcodes in the truth-set.
 
-This remaps reads with cell barcodes to their nearest-neighbors within the truth set.
+For each input HiFI read containing a 10x cell barcode:
+ -  If the barcode is in the whitelist, it is unchanged.
+ -  If the barcode is not found in the whitelist, the index is queried for the closest match in the whitelist.
+ -  Edit distance is calculated between all retrieved whitelist cell barcodes and the input barcode.
+ -  The barcode with the lowest edit distance and lowest hamming distance is output.
+ -  By default, if the edit distance between the cell barcode and whitelist barcode is > 2, the read is marked as failing.
+ -  If no candidates were found, the barcode is unchanged, and the read is marked as failing.
 
-In addition, "real cells" wll be marked with `rc` tag after this step, which will be used by `isoseq3 groupdedup`.
+In addition, "real cells" will be marked with `rc` tag after this step, which will be used by `isoseq3 groupdedup`.
 
 ### When would a user call this tool?
 
@@ -44,6 +51,9 @@ This provides substantial runtime improvements compared to `isoseq3 dedup`.
 ```
 isoseq3 correct --barcodes barcodes.txt[.gz] input.bam output.bam
 ```
+
+Common single-cell whitelist (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/).
+
 
 #### Tags
 This requires the existance of XC and XU barcode tags.
