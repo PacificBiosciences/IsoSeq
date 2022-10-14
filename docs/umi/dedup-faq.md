@@ -29,6 +29,16 @@ barcodes and a substitution in the other cell barcode.
 
 <img src="../img/isoseq-dedup-faq.png"/>
 
+### Method
+
+Perform all vs all comparison and cluster two reads if:
+ * lengths are within +- 50 bp length
+ * UMI (+cell barcode) match with at max 1 mismatch and may be shifted by at max 1 base
+ * pairwise concordance is at least 97%
+ * alignment starts/ends within 5 bp of the other read
+ * no more than 5 bps are deleted or inserted in a window of 20 bp (like in isoseq cluster)
+ * *groupdedup* only: these reads have the same cell barcode
+
 ### Adjusting insert transcript concordance
 
 The following parameters control the thresholds for how well the inserts (in this case, transcripts) match, even when the UMIs and BCs already match:

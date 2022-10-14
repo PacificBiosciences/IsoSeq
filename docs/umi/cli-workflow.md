@@ -10,16 +10,18 @@ nav_order: 3
 The low-level workflow explained via CLI calls. All necessary dependencies are
 installed via bioconda.
 
+For a toy dataset + command walkthrough, see the [Example](https://isoseq.how/umi/examples.html) page.
+
 ## Step 1 - Input
 ### CLR data from Sequel / Sequel II / Sequel IIe
-For each SMRT cell a `movieX.subreads.bam` is needed for processing.
+For each SMRT cell a `<movie>.subreads.bam` is needed for processing.
 
 Each sequencing run is processed by [*ccs*](https://github.com/PacificBiosciences/ccs)
 to generate one HiFi read from productive ZMWs.
 It is advised to use the latest CCS version 4.2.0 or newer.
 _ccs_ can be installed with `conda install pbccs`.
 
-    $ ccs movieX.subreads.bam movieX.ccs.bam
+    $ ccs <movie>.subreads.bam <movie>.ccs.bam
 
 You can easily parallelize _ccs_ generation by chunking, please follow [this how-to](https://ccs.how/faq/parallelize).
 
@@ -36,19 +38,18 @@ irrespective of quality and passes.
 We recommend using only HiFi reads!
 
 
-## Step 2 - Primer removal and demultiplexing
+## Step 2 - Primer removal 
+
 Removal of primers and identification of barcodes is performed using [*lima*](https://lima.how/),
 which can be installed with \
 `conda install lima` and offers a specialized `--isoseq` mode.
 Even in the case that your sample is not barcoded, primer removal is performed
 by *lima*.
-If there are more than two sequences in your `primer.fasta` file or better said
-more than one pair of 5' and 3' primers, please use *lima* with `--peek-guess`
-to remove spurious false positive signal.
-More information about how to name input primer(+barcode)
+
+More information about how to name input primer
 sequences in this [lima Iso-Seq FAQ](https://lima.how/faq/isoseq).
 
-    $ lima movieX.ccs.bam primers.fasta movieX.fl.bam --isoseq --peek-guess
+    $ lima <movie>.ccs.bam primers.fasta <movie>.fl.bam --isoseq 
 
 **Example 1:**
 If using the 10x 3' kit, the primers are below:
@@ -71,7 +72,7 @@ If using the 10x 5' kit, the primers are below:
 Output files will be called according to their primer pair. Example for
 single sample libraries:
 
-    movieX.fl.5p--3p.bam
+    <movie>.fl.5p--3p.bam
 
 
 ## Step 3 - Tag
@@ -79,8 +80,7 @@ Tags, such as UMIs and cell barcodes, have to be clipped from the reads and
 associated with the reads for later deduplication.
 
 **Input**
-The input file for *tag* is one demultiplexed CCS file with full-length reads:
- - `<movie.primer--pair>.fl.bam` or `<movie.primer--pair>.fl.consensusreadset.xml`
+The input file for *tag* is one full-length CCS file from the previous _lima_ step: `<movie>.fl.5p--3p.bam`
 
 **Output**
 The following output files of *tag* contain full-length tagged:
@@ -89,7 +89,7 @@ The following output files of *tag* contain full-length tagged:
 
 Insert your own design or pick a preset:
 
-    $ isoseq tag movieX.fl.5p--3p.bam movieX.flt.bam --design XXX
+    $ isoseq3 tag <mvie>.fl.5p--3p.bam <movie>.flt.bam --design XXX
     
 Refer to the [UMI and BC design page](https://isoseq.how/umi/umi-barcode-design.html) for how to specify `--design`.
 
@@ -99,55 +99,39 @@ In contrast, the 10x 5' kit has a 16bp BC and 10bp UMI, so the design would be `
 
 ## Step 4 - Refine
 Your data now contains full-length tagged reads, but still needs to be refined by:
- - [Trimming](https://github.com/PacificBiosciences/trim_isoseq_polyA) of poly(A) tails
- - Rapid concatmer [identification](https://github.com/jeffdaily/parasail) and removal
+ - Trimming of poly(A) tails
+ - Unintended concatmer identification and removal (note: if the library was constructed using the MAS-Seq method, the reads should have already gone through [skera](https://skera.how) and is not expected to contain any more concatemers at this step)
 
 **Input**
 The input file for *refine* full-length tagged reads and the primer fasta file:
- - `<movie.primer--pair>.flt.bam` or `<movie.primer--pair>.flt.consensusreadset.xml`
- - `primers.fasta`
+ - `<movie>.flt.bam` or `<movie>.flt.transcriptset.xml`
+ - `primers.fasta` 
 
 **Output**
-The following output files of *refine* contain full-length non-concatemer reads:
+The following output files of *refine* contain full-length non-concatemer (FLNC) reads:
  - `<movie>.fltnc.bam`
  - `<movie>.fltnc.transcriptset.xml`
 
 Actual command to refine:
 
-    $ isoseq refine movieX.fl.5p--3p.bam primers.fasta movieX.fltnc.bam --require-polya
+    $ isoseq3 refine <movie>.fl.5p--3p.bam primers.fasta <movie>.fltnc.bam --require-polya
 
-If your sample has poly(A) tails, use `--require-polya`.
-This filters for FL reads that have a poly(A) tail
-with at least 20 base pairs and removes identified tail:
+If your sample has poly(A) tails, use `--require-polya`. 
 
-    $ isoseq refine movieX.NEB_5p--NEB_Clontech_3p.fl.bam movieX.fltnc.bam --require-polya
+This filters for FL reads that have a poly(A) tail with at least 20 base pairs. You can change the polyA length minimum with `--min-polya-length`.
 
-Optional read quality filtering, if your initial CCS input is `<movie>.reads.bam`
-
-    $ isoseq refine movieX.NEB_5p--NEB_Clontech_3p.fl.bam movieX.flnc.bam --min-rq 0.9
 
 ## Step 4b - Merge SMRT Cells
 If you used more than one SMRT cells, merge all of your `<movie>.fltnc.bam` files:
 
-    $ ls movie1.fltnc.bam movie2.fltnc.bam movieN.fltnc.bam > fltnc.fofn
+    $ ls <movie1>.fltnc.bam <movie2>.fltnc.bam ... <movieN>.fltnc.bam > fltnc.fofn
 
 
 ## Step 5 - Cell Barcode Correction and Real Cell Identification
-This step identifies 10x cell barcode errors and corrects them. The tool uses the 10x cell barcode whitelist to reassign erroneous barcodes based on edit distance. Additionally, *correct* estimates which reads are likely to originate from a real cell and labels them using the `rc` tag.
+This step identifies cell barcode errors and corrects them. The tool uses a cell barcode whitelist to reassign erroneous barcodes based on edit distance. Additionally, *correct* estimates which reads are likely to originate from a real cell and labels them using the `rc` tag.
 
+For details on barcode correction, visit the [barcode correction](https://isoseq.how/umi/isoseq-correct.html) page.
 
-**Barcode Correction Method**
-
-First, the *correct* tool builds a Locality-Sensitive Hashing (LSH) index over the 10x whitelist barcode subsequences.
-In the second step, *correct* uses the LSH index to map raw input barcodes to their nearest barcodes in the truth-set.
-
-For each input HiFI read containing a 10x cell barcode:
- -  If the barcode is in the whitelist, it is unchanged.
- -  If the barcode is not found in the whitelist, the index is queried for the closest match in the whitelist.
- -  Edit distance is calculated between all retrieved whitelist cell barcodes and the input barcode.
- -  The barcode with the lowest edit distance and lowest hamming distance is output.
- -  By default, if the edit distance between the cell barcode and whitelist barcode is > 2, the read is marked as failing.
- -  If no candidates were found, the barcode is unchanged, and the read is marked as failing.
 
 **Input** The input file for *correct* is one FLTNC file:
  - `<movie>.fltnc.bam`
@@ -156,14 +140,16 @@ For each input HiFI read containing a 10x cell barcode:
  - `<prefix>.bam`
  - `<prefix>.bam.pbi`
 
-Example invocation:
-    $ isoseq correct --barcodes barcode_set.txt flnc.bam flnc.corrected.bam
+Example:
+    $ isoseq3 correct --barcodes barcode_set.txt fltnc.bam fltnc.corrected.bam
+
+Common single-cell whitelist (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/).
 
 
 ## Step 6 - Deduplication
-This step performs PCR deduplicatation via clustering by UMI and cell barcodes (if available).
+This step performs PCR deduplication via clustering by UMI and cell barcodes (if available).
 
-We provide two methods: *dedup* and *groupdedup*.
+We provide two methods: *dedup* and *groupdedup*. It is recommended	to use *groupdedup* for most cases.
 
 They perform nearly identical functionality. The key difference is that *groupdedup* only deduplicates
 reads sharing a cell barcode and *groupdedup* requires both barcode correction with the *correct* tool and sorting by cell barcode (tag "CB").
@@ -181,22 +167,13 @@ If the `rc` tag added by *correct* is present in the input, *groupdedup* and *de
 After deduplication, *dedup* and *groupdedup* generate one consensus sequence per founder molecule,
 using a QV guided consensus.
 
-**Method**
+For more details, visit the [dedup FAQ](https://isoseq.how/umi/dedup-faq.html).
 
-Perform all vs all comparison and cluster two reads if:
- * lengths are within +- 50 bp length
- * UMI (+cell barcode) match with at max 1 mismatch and may be shifted by at max 1 base
- * pairwise concordance is at least 97%
- * alignment starts/ends within 5 bp of the other read
- * no more than 5 bps are deleted or inserted in a window of 20 bp (like in isoseq cluster)
- * *groupdedup* only: these reads have the same cell barcode
 
 **Input**
-The input file for *dedup* is one FLTNC file:
- - `<movie>.fltnc.bam` or `fltnc.fofn`
+The input file for *dedup* is a barcode-corrected FLTNC file: `<movie>.fltnc.corrected.bam` 
 
-The input file for *groupdedup* is one FLTNC file, sorted by 10x cell barcode tag:
- - `<movie>.tagsort.bam`
+The input file for *groupdedup* is one FLTNC file, sorted by cell barcode (`CB`) tag: `<movie>.fltnc.corrected.sorted.bam`
 
 
 **Output**
@@ -211,10 +188,17 @@ The following output files of *groupdedup* contain polished isoforms:
  - `<prefix>.bam`
  - `<prefix>.bam.pbi`
 
-Example invocation (*dedup*):
+Example(*dedup*):
 
-    $ isoseq dedup fltnc.fofn dedup.bam --verbose
+    $ isoseq3 dedup fltnc.corrected.bam dedup.bam 
 
-Example invocation (*groupdedup*):
+Example(*groupdedup*):
 
-    $ isoseq groupdedup fltnc.tagsort.bam dedup.bam
+    $ samtools sort -t CB fltnc.corrected.bam -o fltnc.corrected.sorted.bam
+    $ isoseq3 groupdedup fltnc.corrected.sorted.bam dedup.bam
+
+
+
+## What to do after deduplication
+
+After obtaining deduplicated reads, follow the rest of the recommended [single-cell Iso-Seq workflow](https://isoseq.how/getting-started.html#recommended-single-cell-iso-seq-workflow), which continues on with [mapping, collapse, and transcript classification](https://isoseq.how/classification/workflow.html).
