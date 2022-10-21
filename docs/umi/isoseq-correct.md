@@ -39,6 +39,7 @@ For each input HiFI read containing a 10x cell barcode:
  -  If no candidates were found, the barcode is unchanged, and the read is marked as failing.
 
 In addition, "real cells" will be marked with `rc` tag after this step, which will be used by `isoseq3 groupdedup`.
+For details on real cell calling, visit the [cell calling](https://isoseq.how/umi/cell-calling.html) page.
 
 ### When would a user call this tool?
 
