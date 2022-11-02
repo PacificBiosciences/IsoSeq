@@ -6,7 +6,10 @@ nav_order: 99
 
 # Version changelog
 
- * **3.8.0**
+ * **3.8.1**
+   * Real-cell `--method` and `--percentile` options added to `correct`
+  
+ * 3.8.0
    * `collapse` allows isoforms with 5p degradation to collapse by default
    * `--do-not-collapse-extra-5exons` added to `collapse`
    * `collapse` max 5p and 3p distances can be set in CLI using 
