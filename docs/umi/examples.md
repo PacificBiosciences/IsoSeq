@@ -14,7 +14,7 @@ This is an example of an end-to-end cmd-line-only workflow:
     $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/2022_pbmc_singlecell_mini/ccs.bam.pbi
 
     # Download cDNA primers
-    $ wget https://downloads.pacbcloud.com/public/dataset/ISMB_workshop/singlecell/primers.fasta
+    $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/2022_pbmc_singlecell_mini/primers.fasta
     
     # Download cell barcode include list
     $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/10x_barcodes/3M-february-2018-REVERSE-COMPLEMENTED.txt.gz

@@ -7,7 +7,10 @@ nav_order: 99
 
 # Pigeon version changelog
 
-**0.1.0**
+**0.1.2**
+   * Improved filtering to `make-seurat`
+
+0.1.1
    * Fixes to `make-seurat` and `classify`
 
 0.1.0
