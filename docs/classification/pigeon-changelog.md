@@ -7,7 +7,10 @@ nav_order: 99
 
 # Pigeon version changelog
 
-**0.1.2**
+**1.0.0**
+   * Fix indexing in `make-seurat` gene matrix
+   
+0.1.2
    * Improved filtering to `make-seurat`
 
 0.1.1

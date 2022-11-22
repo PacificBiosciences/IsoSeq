@@ -26,7 +26,7 @@ Please refer to our [official pbbioconda page](https://github.com/PacificBioscie
 for information on Installation, Support, License, Copyright, and Disclaimer.
 
 ## Latest Version
-Version **3.8.0**: [Full changelog here](/changelog)
+Version **3.8.1**: [Full changelog here](/changelog)
 
 ## What's new!
 New documentation is up, a 1:1 port from the original GitHub docs with minor
