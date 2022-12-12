@@ -6,7 +6,11 @@ nav_order: 99
 
 # Version changelog
 
- * **3.8.1**
+ * **3.8.2**
+   * Update `groupdedup` to output consistent molecular IDs across runs
+   * Bug fix updating `rc` and `gp` tags to passing for subset of `correct` reads
+  
+ * 3.8.1
    * Real-cell `--method` and `--percentile` options added to `correct`
   
  * 3.8.0
