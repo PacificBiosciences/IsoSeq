@@ -29,12 +29,12 @@ There are many single-cell analysis packages in the community, and this tutorial
 4. You can now go to "SMRT Analysis", select "Create New Analysis Job", tick the checkbox on the dataset that has just been imported in Step 3 (It should be the first dataset on top right after the import), then select "Read Segmentations and Single-Cell Iso-Seq" after clicking "Next".
 5. Choose "Human Genome hg38, with Gencode v39" as the "Reference Set", then start the analysis.
    
-   <img src="https://github.com/Magdoll/images_public/blob/master/mas-seq-tutorial-figures/SMRT_Link_Screenshots_2022-12-22.png" width="400" />
+   <img src="https://github.com/Magdoll/images_public/blob/1d798a76e3233f901c8e11d2187b5b07d90e33bf/mas-seq-tutorial-figures/SMRT_Link_Screenshots_2022-12-22.png" width="400" />
 
 
 6. After the analysis has finished, you can review the important metrics in SMRT Link GUI. We expect a good MAS-Seq single cell experiment to produce more than 30m S-reads.
 
-    <img src="https://github.com/Magdoll/images_public/blob/master/mas-seq-tutorial-figures/deconcat_metrics_2022-12-22.png" width="600" />
+    <img src="https://github.com/Magdoll/images_public/blob/1d798a76e3233f901c8e11d2187b5b07d90e33bf/mas-seq-tutorial-figures/deconcat_metrics_2022-12-22.png" width="600" />
 
 7. Download the "Single-cell isoform and gene matrix, tar-gzipped" zip file from "File Downloads" tab. Unzip the file to obtain the genes and isoforms matrix in MTX format.
 
@@ -50,7 +50,7 @@ Go to [`kana`](https://www.jkanche.com/kana/) on your web browser, select "Start
 
 `kana` should finish within a few minutes, and you will be able to see the TSNE/UMAP plot. If you select cell type annotation in the analysis parameters, you will also be able to see what cells are in your sample. Here's a screenshot of `kana` results on the demo dataset, showing the TSNE plot and cell types labelling:
 
-<img src="https://github.com/Magdoll/images_public/blob/master/mas-seq-tutorial-figures/kana_screenshot_2022-12-22.png" width="800" />
+<img src="https://github.com/Magdoll/images_public/blob/1d798a76e3233f901c8e11d2187b5b07d90e33bf/mas-seq-tutorial-figures/kana_screenshot_2022-12-22.png" width="800" />
 
 ## Classifying cell types with CellTypist
 While `kana` is fast and easy, another simple-to-use software for cell types classification is [`celltypist`](https://www.celltypist.org/). This is a Python software that can classify thousands of cells quickly. In addition, it provides many different prediction models meant for different samples. 
@@ -102,6 +102,6 @@ Seurat is a very popular package for single-cell RNA-seq analysis, and we can si
 
 An example script based on the tutorial is provided [here](https://github.com/Magdoll/images_public/blob/master/mas-seq-tutorial-figures/seurat_demo_pbmc_5k_2022-12-22.R). The script produces an UMAP plot like this using the PBMC demo data matrix:
 
-<img src="https://github.com/Magdoll/images_public/blob/master/mas-seq-tutorial-figures/UMAP_seurat_cells_2022-12-22.png" width="600" />
+<img src="https://github.com/Magdoll/images_public/blob/1d798a76e3233f901c8e11d2187b5b07d90e33bf/mas-seq-tutorial-figures/UMAP_seurat_cells_2022-12-22.png" width="600" />
 
 The cell clusters are labelled manually using marker genes following the Seurat tutorial. As you can see, the common PBMC cells are separated well with HiFi sequencing without the need of short-reads sequencing. You can also load the isoforms matrix instead of the genes matrix to discover isoforms unique to any cell type!
