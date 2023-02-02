@@ -13,30 +13,15 @@ installed via bioconda.
 For a toy dataset + command walkthrough, see the [Example](https://isoseq.how/umi/examples.html) page.
 
 ## Step 1 - Input
-### CLR data from Sequel / Sequel II / Sequel IIe
-For each SMRT cell a `<movie>.subreads.bam` is needed for processing.
-
+### HiFi Reads
 Each sequencing run is processed by [*ccs*](https://github.com/PacificBiosciences/ccs)
-to generate one HiFi read from productive ZMWs.
-It is advised to use the latest CCS version 4.2.0 or newer.
-_ccs_ can be installed with `conda install pbccs`.
-
-    $ ccs <movie>.subreads.bam <movie>.ccs.bam
-
-You can easily parallelize _ccs_ generation by chunking, please follow [this how-to](https://ccs.how/faq/parallelize).
-
-### CCS data from Sequel IIe
-If on-instrument CCS was performed, you can use the `reads.bam` or
-`hifi_reads.bam` as input.
-
+to generate one HiFi read from productive ZMWs. 
+After CCS is performed, you can use the `hifi_reads.bam` as input.
 The `hifi_reads.bam` contains only HiFi reads, with predicted accuracy ≥Q20. No
 additional filtering is required.
 
-The `reads.bam` contains one representative sequence per productive ZMW,
-irrespective of quality and passes. 
-
-We recommend using only HiFi reads!
-
+### Segmented Reads
+HiFi reads that have been segmented using [*skera*](https://skera.how/) as a part of the [MAS-Seq single cell](https://www.pacb.com/products-and-services/applications/rna-sequencing/single-cell-rna-sequencing/) application can also be used.
 
 ## Step 2 - Primer removal 
 
@@ -49,7 +34,7 @@ by *lima*.
 More information about how to name input primer
 sequences in this [lima Iso-Seq FAQ](https://lima.how/faq/isoseq).
 
-    $ lima <movie>.ccs.bam primers.fasta <movie>.fl.bam --isoseq 
+    $ lima <movie>.hifi_reads.bam primers.fasta <movie>.fl.bam --isoseq 
 
 **Example 1:**
 If using the 10x 3' kit, the primers are below:
@@ -129,6 +114,9 @@ If you used more than one SMRT cells, merge all of your `<movie>.fltnc.bam` file
 
 ## Step 5 - Cell Barcode Correction and Real Cell Identification
 This step identifies cell barcode errors and corrects them. The tool uses a cell barcode whitelist to reassign erroneous barcodes based on edit distance. Additionally, *correct* estimates which reads are likely to originate from a real cell and labels them using the `rc` tag.
+
+Common single-cell whitelists (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/).
+These are the reverse complement of the 10x single-cell whitelists. 
 
 For details on barcode correction, visit the [barcode correction](https://isoseq.how/umi/isoseq-correct.html) page.
 
