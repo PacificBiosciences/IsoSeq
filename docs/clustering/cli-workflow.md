@@ -11,28 +11,12 @@ The low-level workflow explained via CLI calls. All necessary dependencies are
 installed via bioconda.
 
 ## Step 1 - Input
-### CLR data from Sequel / Sequel II / Sequel IIe
-For each SMRT cell a `movieX.subreads.bam` is needed for processing.
-
+### HiFi Reads
 Each sequencing run is processed by [*ccs*](https://github.com/PacificBiosciences/ccs)
-to generate one representative circular consensus sequence (CCS) for each ZMW.
-It is advised to use the latest CCS version 4.2.0 or newer.
-_ccs_ can be installed with `conda install pbccs`.
-
-    $ ccs movieX.subreads.bam movieX.ccs.bam --min-rq 0.9
-
-You can easily parallelize _ccs_ generation by chunking, please follow [this how-to](https://ccs.how/faq/parallelize).
-
-### CCS data from Sequel IIe
-If on-instrument CCS was performed, you can use the `reads.bam` or
-`hifi_reads.bam` as input.
-
+to generate one HiFi read from productive ZMWs. 
+After CCS is performed, you can use the `hifi_reads.bam` as input.
 The `hifi_reads.bam` contains only HiFi reads, with predicted accuracy ≥Q20. No
 additional filtering is required.
-
-The `reads.bam` contains one representative sequence per productive ZMW,
-irrespective of quality and passes. Do not forget to use `isoseq3 refine
---min-rq 0.9` in step 3!
 
 ## Step 2 - Primer removal and demultiplexing
 Removal of primers and identification of barcodes is performed using [*lima*](https://lima.how/),
@@ -46,7 +30,7 @@ to remove spurious false positive signal.
 More information about how to name input primer(+barcode)
 sequences in this [lima Iso-Seq FAQ](https://lima.how/faq/isoseq).
 
-    $ lima movieX.ccs.bam barcoded_primers.fasta movieX.fl.bam --isoseq --peek-guess
+    $ lima movieX.hifi_reads.bam barcoded_primers.fasta movieX.fl.bam --isoseq --peek-guess
 
 **Example 1:**
 Following is the `primer.fasta` for the Clontech SMARTer and NEB cDNA library
@@ -108,9 +92,6 @@ This filters for FL reads that have a poly(A) tail
 with at least 20 base pairs (`--min-polya-length`) and removes identified tail:
 
     $ isoseq refine movieX.NEB_5p--NEB_Clontech_3p.fl.bam movieX.flnc.bam --require-polya
-
-**Attention!**\
-If your workflow input is `reads.bam`, use `--min-rq 0.9`
 
 ## Step 3b - Merge SMRT Cells
 If you used more than one SMRT cells, list all of your `<movie>.flnc.bam` in one
