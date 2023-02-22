@@ -37,14 +37,20 @@ Sort the transcript GFF file output from _isoseq collapse_.
 pigeon sort <collapsed.gff> -o sorted.gff
 ```
 
-### Index the reference files
+### Sort and index the reference files
 
-Index the genome annotation, (optional) CAGE peak, and (optional) intropolis files before classification.
+Sort and index the genome annotation, (optional) CAGE peak, and (optional) intropolis files before classification. 
+Sorting prior to indexing ensures that all records for a given chromosome/scaffold are contiguous within the file.
 
 ```
-pigeon index <gencode.annotation.gtf>
-pigeon index <cage.bed>
-pigeon index <intropolis.tsv>
+pigeon sort gencode.annotation.gtf -o gencode.annotation.sorted.gtf
+pigeon index gencode.annotation.sorted.gtf
+
+pigeon sort cage.bed -o cage.sorted.bed
+pigeon index cage.sorted.bed
+
+pigeon sort intropolis.tsv -o intropolis.sorted.tsv
+pigeon index intropolis.sorted.tsv
 ```
 
 ### Classify Isoforms
