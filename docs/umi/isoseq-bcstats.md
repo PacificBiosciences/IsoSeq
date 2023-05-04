@@ -29,3 +29,10 @@ Similarly, if '-o' is unset, output TSV information is written to stdout ("/dev/
 By default, the program only emits stats on group barcodes.
 Adding `--umi` will cause stats for the full molecular barcodes to be emitted as well.
 
+Note that, if `isoseq3 correct` was called using the percentile method (see [Cell Calling](https://isoseq.how/umi/cell-calling.html)), then `isoseq3 bcstats` need to use the same parameters as well. For example:
+
+```
+isoseq3 correct --method percentile --percentile 90 ...
+isoseq3 bcstats --method percentile --percentile 90
+```
+
