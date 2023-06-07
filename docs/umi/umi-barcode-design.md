@@ -19,7 +19,9 @@ Tags are abbreviated with a single character with optional length.
 It is the anchor to determine if tags are located on the 3' or 5' side.\
 `U` as in UMI must be preceeded by the length of the UMI.\
 `B` as in cell barcode must be preceed by the length of the cell barcode.\
-`G` is a special PacBio 5' UMI tag with a `GGG` suffix.
+`G` is a special PacBio 5' UMI tag with a `GGG` suffix.\
+`X` must be must be preceeded by the length of an extra sequence to clip
+such as a TSO sequence.
 
 Let's explain by example, the `Example A` design of 8bp UMI 5' and 12bp barcode 5'
 can be specified with this string:

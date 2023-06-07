@@ -14,7 +14,7 @@ nav_order: 3
 | --- | --- | --- |
 | *lima* | Remove cDNA primers | `fl.bam` |
 | *isoseq refine* | Remove polyA tail and artificial concatemers | `flnc.bam` |
-| *isoseq cluster* | *De novo* isoform-level clustering | `unpolished.bam` |
+| *isoseq cluster2* | *De novo* isoform-level clustering scalable to large number of reads (e.g. 40-100M FLNC reads) | `clustered.bam` |
 | *pbmm2* | Align to the genome | `mapped.bam` |
 | *isoseq collapse* | Collapse redundant transcripts based on exonic structures | `collapsed.gff` |
 | *pigeon classify* | Classify transcripts against annotation | GFF and TXT files |
@@ -32,7 +32,7 @@ Begin with the [bulk workflow](https://isoseq.how/clustering/) which ends at `is
 | *isoseq tag* | Extract UMI and cell barcodes | `flt.bam` |
 | *isoseq refine* | Remove polyA tail and artificial concatemers | `flnc.bam` |
 | *isoseq correct* | Correct cell barcodes and tag reads that are real cells | `corrected.bam` |
-| *isoseq bcstats* | Summarize barcode statistics for real/non-real cells | `bcstats_report.tsv` | 
+| *isoseq bcstats* | Summarize barcode statistics for real/non-real cells | `bcstats_report.tsv` |
 | *isoseq groupdedup* | Deduplicate reads | `dedup.bam` |
 | *pbmm2* | Align to the genome | `mapped.bam` |
 | *isoseq collapse* | Collapse redundant transcripts based on exonic structures | `collapsed.gff` |

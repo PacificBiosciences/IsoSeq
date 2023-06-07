@@ -18,6 +18,18 @@ Both of these outputs follow the SQANTI3 [classification file](https://github.co
 | fl_assoc | FL count associated with the isoform including PCR duplicates. |
 | cell_barcodes | Comma separated list of unique cell barcode ids associated with the isoform. |
 
+*Sample specific classification output*
+
+The output from _classify_ and _filter_ can contain fields that are separated by sample and labeled with the sample name.
+This output is expected when the `flnc_count.txt` file from `isoseq collapse` is input using `--flnc` to _classify_.
+
+| Column | Description |
+| ------ | ----------- |
+| FL.\<Sample\> | FL count for the isoform by sample according to the `*.flnc_count.txt` file. |
+| FL_TPM.\<Sample\> | Transcripts per million of the FL count for the isoform by sample. |
+| FL_TPM.\<Sample\>_log10 | Log10 of the transcripts per million for the isoform by sample. |
+| fl_assoc | FL count associated with the isoform across all samples in input. |
+
 ### Junction File
 
 The _classify_ tool outputs a txt file containing every junction for each isoform (`_junctions.txt`) following the SQANTI3 [junction file](https://github.com/ConesaLab/SQANTI3/wiki/Understanding-the-output-of-SQANTI3-QC#glossary-of-classification-file-columns-classificationtxt) convention.
