@@ -7,9 +7,9 @@ nav_order: 5
 
 ## Dedup FAQ
 
-*NOTE:* `isoseq3 groupdedup` is now the recommended deduplication tool that replaces the older, slower `isoseq3 dedup`. However some documentation figures might still refer to the old `isoseq3 dedup` tool as reference.
+*NOTE:* `isoseq groupdedup` is now the recommended deduplication tool that replaces the older, slower `isoseq dedup`. However some documentation figures might still refer to the old `isoseq dedup` tool as reference.
 
-This FAQ explains how `isoseq3 groupdedup` identifies two reads to be from the same founder molecule.
+This FAQ explains how `isoseq groupdedup` identifies two reads to be from the same founder molecule.
 
 
 ### Adjusting maximum mismatches and shifts
@@ -51,15 +51,15 @@ While rare, it is possible to have different transcript molecules share the same
 
 ### groupdedup only: cell barcode and real cells
 
-If using `isoseq3 groupdedup` (which is recommended over `isoseq3 dedup`), it can use the corrected cell barcodes from the `isoseq3 correct` step for grouping reads.
+If using `isoseq groupdedup` (which is recommended over `isoseq dedup`), it can use the corrected cell barcodes from the `isoseq correct` step for grouping reads.
 
 However, the BAM file must first be sorted by `CB` tag:
 ```
 samtools sort –t CB corrected.bam –o corrected.sorted.bam
-isoseq3 groupdedup corrected.bam dedup.bam 
+isoseq groupdedup corrected.bam dedup.bam 
 ```
 
-Additionally, `isoseq3 groupdedup` can use the `rc` tag from the `isoseq3 correct` step and apply to only real cells. This can be turned off with the option below (advanced, not recommended by default):
+Additionally, `isoseq groupdedup` can use the `rc` tag from the `isoseq correct` step and apply to only real cells. This can be turned off with the option below (advanced, not recommended by default):
 ```
   --keep-non-real-cells           Do not skip reads with non-real cells.
   ```

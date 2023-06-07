@@ -23,22 +23,22 @@ This is an example of an end-to-end cmd-line-only workflow:
     $ lima --version
     lima 2.6.0
 
-    # Check isoseq3 version to be >= 3.8.2
-    $ isoseq3 --version
-    isoseq3 3.8.2 
+    # Check isoseq version to be >= 4.0.0
+    $ isoseq --version
+    isoseq 4.0.0 
 
     # cDNA primer removal and read orientation
     $ lima --per-read --isoseq ccs.bam primers.fasta output.bam
 
     # Clip UMI and cell barcode
-    $ isoseq3 tag output.5p--3p.bam flt.bam --design T-12U-16B
+    $ isoseq tag output.5p--3p.bam flt.bam --design T-12U-16B
 
     # Remove poly(A) tails and concatemer
-    $ isoseq3 refine flt.bam primers.fasta fltnc.bam --require-polya
+    $ isoseq refine flt.bam primers.fasta fltnc.bam --require-polya
 
     # Correct single cell barcodes based on an include list
-    $ isoseq3 correct -B 3M-february-2018-REVERSE-COMPLEMENTED.txt.gz fltnc.bam corrected.bam
+    $ isoseq correct -B 3M-february-2018-REVERSE-COMPLEMENTED.txt.gz fltnc.bam corrected.bam
 
     # Deduplicate reads based on UMIs
     $ samtools sort -t CB corrected.bam -o corrected.sorted.bam
-    $ isoseq3 groupdedup corrected.sorted.bam dedup.bam 
+    $ isoseq groupdedup corrected.sorted.bam dedup.bam 

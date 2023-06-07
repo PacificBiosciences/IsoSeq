@@ -1,21 +1,25 @@
 <h1 align="center"><img width="300px" src="doc/img/isoseq.png"/></h1>
-<h1 align="center">IsoSeq v3</h1>
+<h1 align="center">IsoSeq</h1>
 <p align="center">Scalable De Novo Isoform Discovery</p>
 
 ***
 
-*IsoSeq v3* contains the newest tools to identify transcripts in
-PacBio single-molecule sequencing data.
-Starting in SMRT Link v6.0.0, those tools power the
-*IsoSeq GUI-based analysis* application.
-A composable workflow of existing tools and algorithms, combined with
-a new clustering technique, allows to process the ever-increasing yield of PacBio
-machines with similar performance to *IsoSeq* versions 1 and 2.
-Starting with version 3.4, support for UMI and cell barcode based deduplication
-has been added.
+*IsoSeq* contains the newest tools to identify transcripts in PacBio
+single-molecule sequencing data. Starting in SMRT Link v6.0.0, those tools power
+the *IsoSeq GUI-based analysis* application. A composable workflow of existing
+tools and algorithms, combined with new clustering techniques, allows to process
+the ever-increasing yield of PacBio machines. Starting with version 3.4, support
+for UMI and cell barcode based deduplication has been added. Version 4.0 adds a
+new `cluster2` tool that enables clustering of hundreds of millions of HiFi
+reads.
+
+## Announcement
+The binary has been renamed from `isoseq3` to `isoseq` to enable major version
+changes. Bioconda will still generate a `isoseq3` softlink. The old bioconda
+`isoseq3` package will automatically install the latest `isoseq` package.
 
 ## Availability
-Latest version can be installed via bioconda package `isoseq3`.
+Latest version can be installed via bioconda package `isoseq`.
 
 Please refer to our [official pbbioconda page](https://github.com/PacificBiosciences/pbbioconda)
 for information on Installation, Support, License, Copyright, and Disclaimer.
@@ -23,8 +27,6 @@ for information on Installation, Support, License, Copyright, and Disclaimer.
 ## Workflow Documentation
 
  * Visit [isoseq.how](https://isoseq.how) for the latest documentation
-
-
 
 ## DISCLAIMER
 

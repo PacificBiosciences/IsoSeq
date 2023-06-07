@@ -5,22 +5,25 @@ nav_order: 99
 ---
 
 # Version changelog
+ * **4.0.0**
+   * Rename `isoseq3` to `isoseq`
+   * Add new tool `cluster2`
 
- * **3.8.2**
+ * 3.8.2
    * Update `groupdedup` to output consistent molecular IDs across runs
    * Bug fix updating `rc` and `gp` tags to passing for subset of `correct` reads
-  
+
  * 3.8.1
    * Real-cell `--method` and `--percentile` options added to `correct`
-  
+
  * 3.8.0
    * `collapse` allows isoforms with 5p degradation to collapse by default
    * `--do-not-collapse-extra-5exons` added to `collapse`
-   * `collapse` max 5p and 3p distances can be set in CLI using 
+   * `collapse` max 5p and 3p distances can be set in CLI using
      `--max-5p-diff` and `--max-3p-diff`
    * Real-cell annotation in `correct` using `rc` tag
    * Real-cell filtering in `groupdedup`, `dedup`, and `collapse`
-  
+
  * 3.7.0
    * Adding `bcstats`, `correct`, and `groupdedup` to CLI
    * `bcstats` emits frequency statistics for 10x barcodes

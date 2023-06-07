@@ -18,7 +18,7 @@ Typically there is a steep decline in the number UMIS per cell barcode that indi
 
 ## Cell Calling Methods
 
-There are two methods for determining real cells in *isoseq3*.
+There are two methods for determining real cells in *isoseq*.
 
 ### Knee Finding Method (default)
 
@@ -30,24 +30,24 @@ The percentile method approximates real cells based on a percentile cutoff of UM
 
 ### Which tools use cell calling?
 
-Both [*isoseq3 correct*](https://isoseq.how/umi/isoseq-bcstats.html) and [*isoseq3 bcstats*](https://isoseq.how/umi/isoseq-correct.html) use cell calling. 
+Both [*isoseq correct*](https://isoseq.how/umi/isoseq-bcstats.html) and [*isoseq bcstats*](https://isoseq.how/umi/isoseq-correct.html) use cell calling. 
 In addition to cell barcode correction, *isoseq correct* labels the bam records from real cells with the `rc` tag. 
-After correction, *isoseq3 bcstats* can be used to generate a tsv file that can be used to plot the barcode rank plot. 
+After correction, *isoseq bcstats* can be used to generate a tsv file that can be used to plot the barcode rank plot. 
 
 The knee finding cell calling method is the default for both *correct* and *bcstats*. To change the cell calling method, the `--method` option should be added. The cutoff percentile can be changed from the default value of 99 to another value using the `--percentile` option. 
 
 To use the percentile method at the default cutoff (99):
 
 ```
-isoseq3 correct --method percentile ...
-isoseq3 bcstats --method percentile ...
+isoseq correct --method percentile ...
+isoseq bcstats --method percentile ...
 ```
 
 To lower the percentile cutoff to 97:
 
 ```
-isoseq3 correct --method percentile --percentile 97 ...
-isoseq3 bcstats --method percentile --percentile 97 ...
+isoseq correct --method percentile --percentile 97 ...
+isoseq bcstats --method percentile --percentile 97 ...
 ```
 
 
@@ -72,14 +72,14 @@ Additional information about interpreting barcode rank plots can be found in thi
 ### Determinining the correct percentile cutoff
 
 There is a python script available that can be used to determine the correct percentile cutoff to use. 
-The barcode rank plot can be generated with various percentile cutoffs from the [*isoseq3 bcstats*](https://isoseq.how/umi/isoseq-bcstats.html) tsv output. 
+The barcode rank plot can be generated with various percentile cutoffs from the [*isoseq bcstats*](https://isoseq.how/umi/isoseq-bcstats.html) tsv output. 
 The pink line shows the real cells labeled from *bcstats* in the tsv file. 
 
 If not already run, *bcstasts* can be run as follows:
 
 ```
 # Run bcstats on the corrected bam
-$ isoseq3 bcstats --json bcstats_report.json -o bcstats_report.tsv <corrected.bam>
+$ isoseq bcstats --json bcstats_report.json -o bcstats_report.tsv <corrected.bam>
 ```
 
 Download plotting script and install dependencies:

@@ -38,19 +38,19 @@ For each input HiFI read containing a 10x cell barcode:
  -  By default, if the edit distance between the cell barcode and whitelist barcode is > 2, the read is marked as failing.
  -  If no candidates were found, the barcode is unchanged, and the read is marked as failing.
 
-In addition, "real cells" will be marked with `rc` tag after this step, which will be used by `isoseq3 groupdedup`.
+In addition, "real cells" will be marked with `rc` tag after this step, which will be used by `isoseq groupdedup`.
 For details on real cell calling, visit the [cell calling](https://isoseq.how/umi/cell-calling.html) page.
 
 ### When would a user call this tool?
 
-Run this tool on barcode-tagged BAM files before deduplication (`isoseq3 groupdedup`).
-This provides substantial runtime improvements compared to `isoseq3 dedup`.
+Run this tool on barcode-tagged BAM files before deduplication (`isoseq groupdedup`).
+This provides substantial runtime improvements compared to `isoseq dedup`.
 
 ## Usage
 
 ### (with barcode-set in barcodes.txt)
 ```
-isoseq3 correct --barcodes barcodes.txt[.gz] input.bam output.bam
+isoseq correct --barcodes barcodes.txt[.gz] input.bam output.bam
 ```
 
 Common single-cell whitelists (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/).

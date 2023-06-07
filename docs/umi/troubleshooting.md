@@ -58,7 +58,7 @@ While the S-read read length should large reflect the original 10x cDNA library 
 | **Mean Reads per Cell**  | mean reads per real cell | Depends on 10x library and read yield |
 | **Median UMIs per Cell**  | median UMI per real cell | Depends on 10x library, read yield, and PCR duplication rate |
 
-The number of estimated cells, mean reads/cell and median UMIs/cell are highly dependent on the 10x single cell library and sample complexity. In the case where it is suspected that the cell estimation is incorrect using the default `knee` method for `isoseq3 correct`, the cells can be re-estimated using alternative approach of `percentile` method. Refer to [cell calling](https://isoseq.how/umi/cell-calling.html) for more details.
+The number of estimated cells, mean reads/cell and median UMIs/cell are highly dependent on the 10x single cell library and sample complexity. In the case where it is suspected that the cell estimation is incorrect using the default `knee` method for `isoseq correct`, the cells can be re-estimated using alternative approach of `percentile` method. Refer to [cell calling](https://isoseq.how/umi/cell-calling.html) for more details.
 
 ## Single-cell Iso-Seq, Transcript Statistics
 
@@ -75,7 +75,7 @@ The number of estimated cells, mean reads/cell and median UMIs/cell are highly d
 | **Total Unique Transcripts, known transcripts only**  | Total unique known transcripts before `pigeon filter` | Sample-dependent |
 | **Total Unique Transcripts, filtered, known transcripts only**  | Total unique known transcripts after `pigeon filter` | Sample-dependent|
 
-[note1] FLNC reads mapped to the genome after running `isoseq3 collapse` (we actually map dedup reads, but expand it back to reflect the pre-deduplicated FLNC count). Note that `isoseq3 collapse` filters for reads that map chimerically or map with low identity, so if there are cancer fusion genes or genes not well represented in the genome, they’d be excluded at this step. In general, we should expect most (~80%) FLNC reads to map to the genome, even if they end up mapping to, say, intergenic regions.
+[note1] FLNC reads mapped to the genome after running `isoseq collapse` (we actually map dedup reads, but expand it back to reflect the pre-deduplicated FLNC count). Note that `isoseq collapse` filters for reads that map chimerically or map with low identity, so if there are cancer fusion genes or genes not well represented in the genome, they’d be excluded at this step. In general, we should expect most (~80%) FLNC reads to map to the genome, even if they end up mapping to, say, intergenic regions.
 
 [note2] FLNC reads mapped to known genes (known or novel isoforms) after `pigeon classify` and `pigeon filter`. Think of this as the “number of usable reads” that actually go into a standard single-cell analyses. This number includes ribosomal/mitochondrial genes. We typically see 30-50% FLNC reads map to the transcriptome, which is consistent with equivalent 10x short read sequencing data. Most of the non-transcriptomic but genomically mapped reads are attributed to intergenic regions and are filtered out by `pigeon filter`.
 

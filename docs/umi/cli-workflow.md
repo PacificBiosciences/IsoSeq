@@ -74,7 +74,7 @@ The following output files of *tag* contain full-length tagged:
 
 Insert your own design or pick a preset:
 
-    $ isoseq3 tag <mvie>.fl.5p--3p.bam <movie>.flt.bam --design XXX
+    $ isoseq tag <mvie>.fl.5p--3p.bam <movie>.flt.bam --design XXX
     
 Refer to the [UMI and BC design page](https://isoseq.how/umi/umi-barcode-design.html) for how to specify `--design`.
 
@@ -99,7 +99,7 @@ The following output files of *refine* contain full-length non-concatemer (FLNC)
 
 Actual command to refine:
 
-    $ isoseq3 refine <movie>.fl.5p--3p.bam primers.fasta <movie>.fltnc.bam --require-polya
+    $ isoseq refine <movie>.fl.5p--3p.bam primers.fasta <movie>.fltnc.bam --require-polya
 
 If your sample has poly(A) tails, use `--require-polya`. 
 
@@ -129,7 +129,7 @@ For details on barcode correction, visit the [barcode correction](https://isoseq
  - `<prefix>.bam.pbi`
 
 Example:
-    $ isoseq3 correct --barcodes barcode_set.txt fltnc.bam fltnc.corrected.bam
+    $ isoseq correct --barcodes barcode_set.txt fltnc.bam fltnc.corrected.bam
 
 Common single-cell whitelist (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/).
 
@@ -178,12 +178,12 @@ The following output files of *groupdedup* contain polished isoforms:
 
 Example(*dedup*):
 
-    $ isoseq3 dedup fltnc.corrected.bam dedup.bam 
+    $ isoseq dedup fltnc.corrected.bam dedup.bam 
 
 Example(*groupdedup*):
 
     $ samtools sort -t CB fltnc.corrected.bam -o fltnc.corrected.sorted.bam
-    $ isoseq3 groupdedup fltnc.corrected.sorted.bam dedup.bam
+    $ isoseq groupdedup fltnc.corrected.sorted.bam dedup.bam
 
 
 

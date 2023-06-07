@@ -7,7 +7,7 @@ nav_order: 2
 
 # IsoSeq Collapse
 
-After transcript sequences are mapped to a reference genome, `isoseq3 collapse` can be used to collapse redundant transcripts (based on exonic structures) into unique isoforms. Output consists of unique isoforms in GFF format and secondary files containing information about the number of reads supporting each unique isoform.
+After transcript sequences are mapped to a reference genome, `isoseq collapse` can be used to collapse redundant transcripts (based on exonic structures) into unique isoforms. Output consists of unique isoforms in GFF format and secondary files containing information about the number of reads supporting each unique isoform.
 
 ### Collapse Examples
 
@@ -24,10 +24,10 @@ pbmm2 align --preset ISOSEQ --sort <input.bam> <ref.fa> <mapped.bam>
 Collapse mapped reads into unique isoforms using _isoseq collapse_.
 
 ```
-isoseq3 collapse <mapped.bam> <collapse.gff>
+isoseq collapse <mapped.bam> <collapse.gff>
 ```
 
-Note: `isoseq3 collapse` by default will collapse isoforms containing 5p degradation as of version `3.8.0`. To turn this off `--do-not-collapse-extra-5exons` should be used. This option is recommended for bulk IsoSeq.
+Note: `collapse` by default will collapse isoforms containing 5p degradation as of version `3.8.0`. To turn this off `--do-not-collapse-extra-5exons` should be used. This option is recommended for bulk IsoSeq.
 
 ### Ouptut
 
@@ -56,7 +56,7 @@ Note: `isoseq3 collapse` by default will collapse isoforms containing 5p degrada
 
 # Collapse FAQ
 
-As of *isoseq3 v3.8.0* `isoseq3 collapse` has algorithmic updates. 
+As of *isoseq3 v3.8.0* `collapse` has algorithmic updates. 
 These updates include performance improvements and updates to isoform collapse logic. 
 
 ## What is new in *v3.8.0* and later?
@@ -93,5 +93,5 @@ New *v3.8.0* `collapse` maximum junction difference parameters:
 The legacy `collapse` logic can be recreated using the following parameters:
 
 ```
-isoseq3 collapse --do-not-collapse-extra-5exons --max-5p-diff 5 --max-3p-diff 5 <mapped.bam> <collapsed.gff>
+isoseq collapse --do-not-collapse-extra-5exons --max-5p-diff 5 --max-3p-diff 5 <mapped.bam> <collapsed.gff>
 ```

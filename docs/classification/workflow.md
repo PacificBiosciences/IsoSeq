@@ -21,12 +21,12 @@ Collapse redundant transcripts into unique isoforms based on exonic structures u
 
 Single-cell IsoSeq:
 ```
-isoseq3 collapse <mapped.bam> <collapsed.gff>
+isoseq collapse <mapped.bam> <collapsed.gff>
 ```
 
 Bulk IsoSeq:
 ```
-isoseq3 collapse --do-not-collapse-extra-5exons <mapped.bam> <collapsed.gff>
+isoseq collapse --do-not-collapse-extra-5exons <mapped.bam> <collapsed.gff>
 ```
 
 ### Sort input transcript GFF
@@ -106,7 +106,7 @@ Output files that are compatible with the downstream [Seurat](https://satijalab.
 pigeon make-seurat --dedup <dedup.fasta> --group <collapse.group.txt> -d <output_dir> <classification.filtered_lite_classification.txt>
 ```
 
-The `dedup.fasta` file is obtained after running `isoseq3 groupdedup` or `isoseq3 dedup`. The `collapse.group.txt` file is obtained after running `isoseq3 collapse`. 
+The `dedup.fasta` file is obtained after running `isoseq groupdedup` or `isoseq dedup`. The `collapse.group.txt` file is obtained after running `isoseq collapse`. 
 
 The output will consist of:
 ```
