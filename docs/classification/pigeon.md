@@ -13,14 +13,11 @@ nav_order: 1
 
 _Pigeon_ is a PacBio Transcript Toolkit that contains tools to classify and filter full-length transcript isoforms into [categories](/classification/categories) against a reference annotation. _Pigeon_ is based off of [SQANTI3](https://github.com/ConesaLab/SQANTI3) and the output is compatible with downstream analysis with Seurat.
 
-The _pigeon_ tool is in beta. Expect continual changes, which may change the algorithm and or the command line interface.
-
 ## Tools
 
 | Tool | Description |
 | ----------- | ---- |
-| sort        | Transcript sorting |
-| index       | Annotation file indexing |
+| prepare     | Prepare input files for pigeon tools |
 | classify    | Transcript classification |
 | filter      | Transcript classification filtering |
 | report      | Transcript reporting |
@@ -39,4 +36,4 @@ The CLI workflow is described [here](/classification/workflow).
 The latest version of `pigeon` is distributed through [BioConda](https://github.com/PacificBiosciences/pbbioconda).
 
 ## Versions
-Version **1.0.0**: [Full changelog here](/classification/pigeon-changelog)
+Version **1.1.0**: [Full changelog here](/classification/pigeon-changelog)

@@ -7,7 +7,9 @@ nav_order: 99
 # Version changelog
  * **4.0.0**
    * Rename `isoseq3` to `isoseq`
-   * Add new tool `cluster2`
+   * Add new tool `isoseq cluster2`
+   * Update `--max-5p-diff` default value for `isoseq collapse`
+   * Add `X` design option to `isoseq tag` to remove TSO sequences
 
  * 3.8.2
    * Update `groupdedup` to output consistent molecular IDs across runs

@@ -19,52 +19,79 @@ pbmm2 align --preset ISOSEQ --sort <input.bam> <ref.fa> <mapped.bam>
 
 Collapse redundant transcripts into unique isoforms based on exonic structures using _isoseq collapse_.
 
-Single-cell IsoSeq:
+Single-cell Iso-Seq:
 ```
 isoseq collapse <mapped.bam> <collapsed.gff>
 ```
 
-Bulk IsoSeq:
+Bulk Iso-Seq:
 ```
-isoseq collapse --do-not-collapse-extra-5exons <mapped.bam> <collapsed.gff>
-```
-
-### Sort input transcript GFF
-
-Sort the transcript GFF file output from _isoseq collapse_.
-
-```
-pigeon sort <collapsed.gff> -o sorted.gff
+isoseq collapse --do-not-collapse-extra-5exons <mapped.bam> <flnc.bam> <collapsed.gff>
 ```
 
-### Sort and index the reference files
+Note: The optional `<flnc.bam>` input is required to get the correct FLNC counts for bulk Iso-Seq in the `flnc_count.txt` supplemental file.
 
-Sort and index the genome annotation, (optional) CAGE peak, and (optional) intropolis files before classification. 
-Sorting prior to indexing ensures that all records for a given chromosome/scaffold are contiguous within the file.
+### Prepare reference files for pigeon
+As of version *1.1.0* `pigeon prepare` replaces the `pigeon sort` and `pigeon index` tools.
+Use `pigeon prepare` to sort and index the genome annotation, (optional) CAGE peak, and (optional) intropolis files before classification.
+This step ensures that all records for a given chromosome/scaffold are contiguous within the file.
+Additionally, if a reference fasta is provided, the `fai` index will be generated.
 
 ```
-pigeon sort gencode.annotation.gtf -o gencode.annotation.sorted.gtf
-pigeon index gencode.annotation.sorted.gtf
+pigeon prepare <gencode.annotation.gtf> <reference.fa> <cage.bed> <intropolis.tsv>
+```
+or input a file of file names
+```
+pigeon prepare files.fofn
+```
 
-pigeon sort cage.bed -o cage.sorted.bed
-pigeon index cage.sorted.bed
+More information about pigeon reference input can be found (here)[https://isoseq.how/classification/pigeon-input.html].
 
-pigeon sort intropolis.tsv -o intropolis.sorted.tsv
-pigeon index intropolis.sorted.tsv
+### Prepare input transcript GFF
+
+Use `prepare` to sort the transcript GFF file output from _isoseq collapse_.
+
+```
+pigeon prepare <collapsed.gff>
 ```
 
 ### Classify Isoforms
 
+**Transcript classification**
+
 Classify isoforms into [categories](/classification/categories) using the base required input.
 
 ```
-pigeon classify <sorted.gff> <annotations.gtf> <reference.fa>
+pigeon classify <collapsed.sorted.gff> <annotations.gtf> <reference.fa>
 ```
 
-Alternatively, classify isoforms using supplemental reference information. Details in [pigeon input](/classification/pigeon-input).
+**Adding supplemental reference information to classification output**
+
+Additionally, supplemental reference information can be added to the `classification.txt` output. Additional reference details can be found in [pigeon input](/classification/pigeon-input).
 
 ```
-pigeon classify <sorted.gff> <annotations.gtf> <reference.fa> --fl abundance.txt --cage-peak refTSS.bed --poly-a polyA.list
+pigeon classify <collapsed.sorted.gff> <annotations.gtf> <reference.fa> --cage-peak refTSS.bed --poly-a polyA.list
+```
+Alternatively use provided reference sets [here](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/REF-pigeon_ref_sets/).
+
+```
+pigeon classify <sorted.gff> --ref Human_hg38_Gencode_v39.referenceset.xml
+```
+**Adding FLNC counts to classification output**
+
+FLNC counts can be added to the `classification.txt` output.
+Pigeon uses supplemental files from `isoseq collapse` to to add counts.
+
+For single-cell Iso-Seq, use the `abundance.txt` output from `isoseq collapse`. This file contains the deduped FLNC counts and cell barcodes.
+
+```
+pigeon classify <collapsed.sorted.gff> <annotations.gtf> <reference.fa> --fl abundance.txt
+```
+
+For bulk Iso-Seq, use the `flnc_count.txt` output from `isoseq collapse`. This file contains the FLNC counts after `isoseq refine` separated by sample if applicable.
+
+```
+pigeon classify <collapsed.sorted.gff> <annotations.gtf> <reference.fa> --fl flnc_count.txt
 ```
 
 ### Filter isoforms
@@ -78,7 +105,7 @@ pigeon filter <classification.txt>
 If you want to generate a filtered GFF, you need to also provide the GFF that was used as input to `pigeon classify`
 
 ```
-pigeon filter <classification.txt> --isoforms <sorted.gff>
+pigeon filter <classification.txt> --isoforms <collapsed.sorted.gff>
 ```
 
 The expected output consists of:
@@ -92,13 +119,13 @@ The expected output consists of:
 
 ### Report gene saturation
 
-Gene saturation can be determined by subsampling the classification output and determining the number of unique genes at each subsample size.
+Gene and isoform- level saturation can be determined by subsampling the classification output and determining the number of unique genes / isoforms at each subsample size.
 
 ```
 pigeon report <classification.filtered_lite_classification.txt> <saturation.txt>
 ```
 
-### Make Seurat compatible input
+### Make Seurat-compatible gene- and isoform- count matrix for single-cell Iso-Seq
 
 Output files that are compatible with the downstream [Seurat](https://satijalab.org/seurat/) analysis package.
 
@@ -106,7 +133,7 @@ Output files that are compatible with the downstream [Seurat](https://satijalab.
 pigeon make-seurat --dedup <dedup.fasta> --group <collapse.group.txt> -d <output_dir> <classification.filtered_lite_classification.txt>
 ```
 
-The `dedup.fasta` file is obtained after running `isoseq groupdedup` or `isoseq dedup`. The `collapse.group.txt` file is obtained after running `isoseq collapse`. 
+The `dedup.fasta` file is obtained after running `isoseq groupdedup`. The `collapse.group.txt` file is obtained after running `isoseq collapse`.
 
 The output will consist of:
 ```
