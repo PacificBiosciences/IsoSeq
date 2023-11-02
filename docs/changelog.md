@@ -7,6 +7,7 @@ nav_order: 99
 # Version changelog
  * **4.1.0**
    * Update minimap2 to version 2.26
+   * SMRT Link v13.0 release
 
  * 4.0.0
    * Rename `isoseq3` to `isoseq`
