@@ -36,10 +36,12 @@ sequences in this [lima Iso-Seq FAQ](https://lima.how/faq/isoseq).
     $ lima movieX.hifi_reads.bam barcoded_primers.fasta movieX.fl.bam --isoseq --peek-guess
 
 If your sample is barcoded at the cDNA level, use `--overwrite-biosample-names` to update the sample names.
+
     $ lima movieX.hifi_reads.bam barcoded_primers.fasta movieX.fl.bam --isoseq --peek-guess --overwrite-biosample-names
 
 **Example 1:**
 Following is the IsoSeq_v2_primers_12.fasta for the MAS-Seq bulk Iso-Seq primers that supports 12-plex barcoding at the cDNA level:
+
     >IsoSeqX_bc01_5p
     CTACACGACGCTCTTCCGATCTACTACACGCAATGAAGTCGCAGGGTTGGG
     >IsoSeqX_bc02_5p

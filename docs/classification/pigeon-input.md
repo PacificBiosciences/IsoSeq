@@ -8,6 +8,7 @@ nav_order: 4
 ## Pigeon Tools Input
 
 **prepare**
+
 | File | Description |
 | ----------- | ---- |
 | Transcript GFF | Collapsed transcript GFF from _isoseq collapse_ |
@@ -16,6 +17,7 @@ nav_order: 4
 | Intropolis data (Optional) | Intropolis data in custom format |
 
 **classify**
+
 | File | Description |
 | ----------- | ---- |
 | Reference Genome | Reference genome in FASTA format |
@@ -27,6 +29,7 @@ nav_order: 4
 | FL Counts (Optional) | Bulk IsoSeq FL count info from _isoseq collapse_ (`*.flnc_counts.txt`) |
 
 **make-seurat**
+
 | File | Description |
 | ----------- | ---- |
 | Molecules FASTA | Molecules FASTA file from _isoseq dedup_ |
@@ -35,4 +38,4 @@ nav_order: 4
 ### Examples
 Sorted and indexed references for human and mouse can be found [here](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/REF-pigeon_ref_sets/).
 
-Guidance about custom references can be found [here] (/classification/pigeon-annotation).
+Guidance about custom references can be found [here](/classification/pigeon-annotation).
