@@ -45,7 +45,7 @@ or input a file of file names
 pigeon prepare files.fofn
 ```
 
-More information about pigeon reference input can be found (here)[https://isoseq.how/classification/pigeon-input.html].
+More information about pigeon reference input can be found [here](/classification/pigeon-input).
 
 ### Prepare input transcript GFF
 
