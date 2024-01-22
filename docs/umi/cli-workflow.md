@@ -99,7 +99,7 @@ The following output files of *refine* contain full-length non-concatemer (FLNC)
 
 Actual command to refine:
 
-    $ isoseq refine <movie>.fl.5p--3p.bam primers.fasta <movie>.fltnc.bam --require-polya
+    $ isoseq refine <movie>.flt.5p--3p.bam primers.fasta <movie>.fltnc.bam --require-polya
 
 If your sample has poly(A) tails, use `--require-polya`.
 
