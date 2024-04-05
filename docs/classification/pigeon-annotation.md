@@ -118,3 +118,50 @@ SIRV1	LexogenSIRVData	exon	7553	7814	.	-	0	gene_name "SIRV1"; gene_id "SIRV1"; t
 SIRV1	LexogenSIRVData	exon	10283	10366	.	-	0	gene_name "SIRV1"; gene_id "SIRV1"; transcript_id "SIRV103"; exon_assignment "SIRV103_4";
 SIRV1	LexogenSIRVData	exon	10648	10791	.	-	0	gene_name "SIRV1"; gene_id "SIRV1"; transcript_id "SIRV103"; exon_assignment "SIRV103_5";
 ```
+
+## Modification example
+
+Modifications can be made using a variety of commmand line tools, python, or gff specific tools such as [gffread](https://ccb.jhu.edu/software/stringtie/gff.shtml#gffread).
+
+Example of unmodified sorghum gff:
+```
+ChrM	cshl_gene	gene	444449	447142	.	-	.	ID=SbiRTX436.MG005100;Name=SbiRTX436.MG005100;biotype=protein_coding
+ChrM	cshl_gene	mRNA	444449	447142	.	-	.	ID=SbiRTX436.MG005100.1;Parent=SbiRTX436.MG005100;Name=SbiRTX436.MG005100.1;biotype=protein_coding
+ChrM	cshl_gene	five_prime_UTR	445616	447142	.	-	.	Parent=SbiRTX436.MG005100.1;Name=5UTR.1
+ChrM	cshl_gene	exon	444449	447142	.	-	.	Parent=SbiRTX436.MG005100.1;Name=exon.1
+ChrM	cshl_gene	CDS	444449	445615	.	-	.	Parent=SbiRTX436.MG005100.1;Name=CDS.1
+```
+
+Update fields to adhere to above guidelines using python.
+```
+cat sorghum.gff | python -c '
+import sys
+for line in sys.stdin:
+  fields = line.split("\t")
+  if len(fields) > 8:
+    if fields[2] == "gene":
+      fields[8] = fields[8].replace("Name=", "gene_name=")
+  sys.stdout.write("\t".join(fields))
+' > sorghum.modified.gff
+```
+
+Example of gff after python modifications:
+```
+ChrM	cshl_gene	gene	444449	447142	.	-	.	ID=SbiRTX436.MG005100;gene_name=SbiRTX436.MG005100;biotype=protein_coding
+ChrM	cshl_gene	mRNA	444449	447142	.	-	.	ID=SbiRTX436.MG005100.1;Parent=SbiRTX436.MG005100;Name=SbiRTX436.MG005100.1;biotype=protein_coding
+ChrM	cshl_gene	five_prime_UTR	445616	447142	.	-	.	Parent=SbiRTX436.MG005100.1;Name=5UTR.1
+ChrM	cshl_gene	exon	444449	447142	.	-	.	Parent=SbiRTX436.MG005100.1;Name=exon.1
+ChrM	cshl_gene	CDS	444449	445615	.	-	.	Parent=SbiRTX436.MG005100.1;Name=CDS.1
+```
+
+Next, convert to a simplified gtf using gffread.
+```
+gffread sorghum.modified.gff -T --keep-genes -o sorghum.modified.gtf
+```
+
+Final result:
+```
+ChrM	cshl_gene	transcript	444449	447142	.	-	.	transcript_id "SbiRTX436.MG005100.1"; gene_id "SbiRTX436.MG005100"; gene_name "SbiRTX436.MG005100"
+ChrM	cshl_gene	exon	444449	447142	.	-	.	transcript_id "SbiRTX436.MG005100.1"; gene_id "SbiRTX436.MG005100"; gene_name "SbiRTX436.MG005100";
+ChrM	cshl_gene	CDS	444449	445615	.	-	0	transcript_id "SbiRTX436.MG005100.1"; gene_id "SbiRTX436.MG005100"; gene_name "SbiRTX436.MG005100";
+```

@@ -10,7 +10,7 @@ nav_order: 5
 ### Classification File
 
 The _classify_ and _filter_ tools output a txt file containing isoform annotation information.
-The output from _classify_ and _filter_ will have the extensions `_classification.txt` or `_classification.filtered_lite_classification.txt` respectively.
+The output from _classify_ and _filter_ will have the extensions `_classification.txt` or `_filtered.classification.txt` respectively.
 Both of these outputs follow the SQANTI3 [classification file](https://github.com/ConesaLab/SQANTI3/wiki/Understanding-the-output-of-SQANTI3-QC#glossary-of-classification-file-columns-classificationtxt) convention with the exception of two added columns.
 
 | Column | Description |
@@ -68,11 +68,12 @@ The _report_ tools outputs a txt file containing the read count and number of un
 
 ## Pigeon _make-seurat_ output
 
-The _make-seurat_ tool outputs the required files to run tertiary analysis with [Seurat](https://satijalab.org/seurat/).
+The _make-seurat_ tool outputs the required files to run tertiary analysis with [Seurat](https://satijalab.org/seurat/) and other examples [here](/umi/tertiary-analysis). Output is provided at both the isoform-level and the gene-level containing the sum of all isoforms associated with a particular gene. 
 
 Files output:
 ```
 <output_dir>/annotated.info.csv
+<output_dir>/annotated-prefilter.info.csv
 <output_dir>/info.csv
 <output_dir>/genes_seurat/barcodes.tsv
 <output_dir>/genes_seurat/genes.tsv
@@ -80,4 +81,16 @@ Files output:
 <output_dir>/isoforms_seurat/barcodes.tsv
 <output_dir>/isoforms_seurat/genes.tsv
 <output_dir>/isoforms_seurat/matrix.mtx
+```
+
+`info.csv` contains the following information:
+```
+id	UMI	UMIrev	BC	BCrev	length	count
+molecule/0	CCGCTCTCCT	AGGAGAGCGG	AAACCTGAGACATAAC	GTTATGTCTCAGGTTT	3718	1
+```
+
+`annotated.info.csv` and `annotated-prefilter.info.csv` contains additional information from `pigeon classify` and `pigeon filter`. 
+```
+id	pbid	length	transcript	gene	category	ontarget	ORFgroup	UMI	UMIrev	BC	BCrev	pass_pigeon_filter
+molecule/1856656	PB.10002.69	1201	ENST00000263918.9	STRN	incomplete-splice_match	NA	NA	GCATTACTGT	ACAGTAATGC	ACCGTAAAGAAGATTC	GAATCTTCTTTACGGT	PASS
 ```
