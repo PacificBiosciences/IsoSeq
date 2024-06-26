@@ -10,14 +10,14 @@ nav_order: 4
 This is an example of an end-to-end cmd-line-only workflow:
 
     # Download HiFi reads
-    $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/2022_pbmc_singlecell_mini/ccs.bam
-    $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/2022_pbmc_singlecell_mini/ccs.bam.pbi
+    $ wget https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/TUTORIAL-DATA-PBMC-single-cell-mini/ccs.bam
+    $ wget https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/TUTORIAL-DATA-PBMC-single-cell-mini/ccs.bam.pbi
 
     # Download cDNA primers
-    $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/2022_pbmc_singlecell_mini/primers.fasta
+    $ wget https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/TUTORIAL-DATA-PBMC-single-cell-mini/primers.fasta
     
     # Download cell barcode include list
-    $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/10x_barcodes/3M-february-2018-REVERSE-COMPLEMENTED.txt.gz
+    $ wget https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/REF-10x_barcodes/3M-february-2018-REVERSE-COMPLEMENTED.txt.gz
 
     # Check lima version to be >= 2.6.0
     $ lima --version
