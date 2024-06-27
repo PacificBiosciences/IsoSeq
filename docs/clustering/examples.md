@@ -10,7 +10,7 @@ nav_order: 4
 ### Single sample
 
     This is a toy dataset consisting of ~80k segmented reads (S-reads) from a Kinnex full-length RNA library. The original HiFi reads have already been segmented using Skera, so we can directly go into primer removal using lima and such.
-    
+
     # Download toy S-read dataset
     $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/human_80k_Sreads.segmented.bam
 
@@ -44,13 +44,13 @@ nav_order: 4
     flnc.report.csv
 
     $ isoseq cluster2 flnc.bam transcripts.bam
-    
+
 
     $ ls transcripts*
     transcripts.bam
     transcripts.bam.pbi
     transcripts.cluster_report.csv
-    
+
 ### Multiplexed samples
 
     This is a 12-plex regular Iso-Seq (non-Kinex) run on Sequel II system consisting of ~3 million HiFi reads.
@@ -63,7 +63,7 @@ nav_order: 4
     $ wget https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/REF-primers/IsoSeq_v2_primers_12.fasta
 
     # Demux and primer removal
-    $ lima --isoseq --peek-guess m64307e_230628_025302.hifi_reads.bam IsoSeq_v2_primers_12.fasta output.bam
+    $ lima --overwrite-biosample-names --isoseq --peek-guess m64307e_230628_025302.hifi_reads.bam IsoSeq_v2_primers_12.fasta output.bam
 
     # Combine inputs
     $ ls output.IsoSeqX*bam > all.fofn
