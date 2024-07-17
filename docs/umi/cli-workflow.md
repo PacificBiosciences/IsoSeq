@@ -80,7 +80,7 @@ Refer to the [UMI and BC design page](https://isoseq.how/umi/umi-barcode-design.
 
 For example, the 10x 3' (v3.1) kit has a 12bp UMI and 16bp BC on the 3' end, so the design would be `--design T-12U-16B`.
 
-In contrast, the 10x 5' kit has a 16bp BC, 10bp UMI, and 10bp TSO, so the design would be `--design 16B-10U-10X-T`.
+In contrast, the 10x 5' kit has a 16bp BC, 10bp UMI, and 13bp TSO, so the design would be `--design 16B-10U-13X-T`.
 
 ## Step 4 - Refine
 Your data now contains full-length tagged reads, but still needs to be refined by:
