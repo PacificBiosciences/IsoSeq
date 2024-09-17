@@ -13,6 +13,7 @@ nav_order: 4
 
     # Download toy S-read dataset
     $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/human_80k_Sreads.segmented.bam
+    $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/human_80k_Sreads.segmented.bam.pbi
 
     # Download the Iso-Seq v2 cDNA primers (from Iso-Seq express 2.0 kit)
     $ wget https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/REF-primers/IsoSeq_v2_primers_12.fasta
