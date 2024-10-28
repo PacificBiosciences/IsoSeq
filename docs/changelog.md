@@ -5,7 +5,12 @@ nav_order: 99
 ---
 
 # Version changelog
- * **4.1.0**
+ * **4.2.0**
+   * SMRT Link v25.1 release
+   * Update `PM` to show platform name
+   * Update `RGID` to match `molecule` read name for `groupdedup` / `dedup`
+
+ * 4.1.0
    * Update minimap2 to version 2.26
    * SMRT Link v13.0 release
 
