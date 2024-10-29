@@ -125,6 +125,12 @@ Gene and isoform- level saturation can be determined by subsampling the classifi
 pigeon report <classification.filtered_lite_classification.txt> <saturation.txt>
 ```
 
+For bulk Iso-Seq that has been clustered using `cluster2`, use the `--exclude-singletons` option.
+
+``
+pigeon report --exclude-singletons <classification.filtered_lite_classification.txt> <saturation.txt>
+```
+
 ### Make Seurat-compatible gene- and isoform- count matrix for single-cell Iso-Seq
 
 Output files that are compatible with the downstream [Seurat](https://satijalab.org/seurat/) analysis package.
