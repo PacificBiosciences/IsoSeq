@@ -28,7 +28,7 @@ Please refer to our [official pbbioconda page](https://github.com/PacificBioscie
 for information on Installation, Support, License, Copyright, and Disclaimer.
 
 ## Latest Version
-Version **4.2.0**: [Full changelog here](/changelog)
+Version **4.3.0**: [Full changelog here](/changelog)
 
 ## What's new!
 Version 4.0 adds a new `cluster2` tool that enables clustering of hundreds of
