@@ -7,7 +7,10 @@ nav_order: 99
 
 # Pigeon version changelog
 
-**1.3.0**
+**1.4.0**
+   * Support for ultra-high memory Linux systems
+
+1.3.0
    * SMRT Link v25.1 release
    * Add `exclude-singletons` option to `report`
 

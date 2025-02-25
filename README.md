@@ -24,6 +24,9 @@ Latest version can be installed via bioconda package `isoseq`.
 Please refer to our [official pbbioconda page](https://github.com/PacificBiosciences/pbbioconda)
 for information on Installation, Support, License, Copyright, and Disclaimer.
 
+## Latest Version
+Version **4.3.0**: [Full changelog here](docs/changelog)
+
 ## Workflow Documentation
 
  * Visit [isoseq.how](https://isoseq.how) for the latest documentation
