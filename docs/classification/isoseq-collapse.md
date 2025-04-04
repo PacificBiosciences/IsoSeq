@@ -39,6 +39,10 @@ Notes:
 
 ### Output
 
+Collapsed transcripts are assigned unique IDs in the format `PB.X.Y`, where `X` is based solely on genomic mapping region - not exonic structure. This means `X` can cover multiple genes. `Y` represents the `Y-th` transcript in the X region.
+
+Output files:
+
 - `collapse.gff` contains the collapsed isoforms in gff format.
 - `*.abundance.txt` contains information about the number of FLNC reads supporting each isoform and cell barcodes if applicable. Each unique isoform has the ID format PB.X.Y, while `count_fl` denotes the number of unique molecules (after UMI deduplication) supporting the isoform, and `fl_assoc` denotes the number of reads (before UMI deduplication) supporting it. `cell_barcodes` shows the list of single cell barcodes from which the reads came from, if applicable. This file should be used for downstream `pigeon` steps for Single-cell Iso-Seq.
     ```
