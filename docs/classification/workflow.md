@@ -127,7 +127,7 @@ pigeon report <classification.filtered_lite_classification.txt> <saturation.txt>
 
 For bulk Iso-Seq that has been clustered using `cluster2`, use the `--exclude-singletons` option.
 
-``
+```
 pigeon report --exclude-singletons <classification.filtered_lite_classification.txt> <saturation.txt>
 ```
 
