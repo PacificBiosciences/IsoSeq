@@ -5,7 +5,10 @@ nav_order: 99
 ---
 
 # Version changelog
- * **4.3.0**
+ * 26.2.0
+   * Improve polyA trimming
+
+ * 4.3.0
    * Support for ultra-high memory Linux systems
    * Fixed discrepency between `correct` and `bcstats` real-cell count
 
