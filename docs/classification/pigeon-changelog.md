@@ -6,8 +6,11 @@ nav_order: 99
 ---
 
 # Pigeon version changelog
+**26.2.0**
+   * Fix PGI parsing for large offsets
+   * Fix barcode registration before filtering in `make-seurat`
 
-**1.4.0**
+1.4.0
    * Support for ultra-high memory Linux systems
 
 1.3.0
