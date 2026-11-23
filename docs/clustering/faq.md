@@ -18,7 +18,7 @@ The ever-increasing throughput of the Sequel system gave rise to the need for a
 scalable software solution that can handle millions of CCS reads, while
 maintaining sensitivity and accuracy. Internal benchmarks have shown that
 *Iso-Seq v3* is orders of magnitude faster than currently employed solutions and
-[SQANTI](https://bitbucket.org/ConesaLab/sqanti) attributes *Iso-Seq v3* a higher
+[SQANTI](https://github.com/ConesaLab/SQANTI) attributes *Iso-Seq v3* a higher
 number of perfectly annotated isoforms:
 
 <img width="1000px" src="../img/isoseq-performance.png"/>
