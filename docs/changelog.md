@@ -4,7 +4,7 @@ title: Changelog
 nav_order: 99
 ---
 
-# Version changelog
+# Isoseq version changelog
  * 26.2.0
    * Improve polyA trimming
 

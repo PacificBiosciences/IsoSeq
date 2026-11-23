@@ -29,4 +29,4 @@ nav_order: 8
 |it | string | trimmed | `tag` | List of barcodes/UMIs clipped during tag |
 |im | string | names | `dedup`, `groupdedup` | List of names of input reads used in generating consensus |
 
-<img src="../doc/img/isoseq.png"/>
+<img src="img/isoseq.png"/>

@@ -105,7 +105,7 @@ for each primer pair:
 
 ## Step 3 - Refine
 Your data now contains full-length reads, but still needs to be refined by:
- - [Trimming](https://github.com/PacificBiosciences/trim_isoseq_polyA) of poly(A) tails
+ - Trimming of poly(A) tails
  - Rapid concatemer [identification](https://github.com/jeffdaily/parasail) and removal
 
 **Input**\

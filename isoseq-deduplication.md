@@ -141,7 +141,7 @@ Insert your own design or pick a preset:
 
 ### Step 4 - Refine
 Your data now contains full-length tagged reads, but still needs to be refined by:
- - [Trimming](https://github.com/PacificBiosciences/trim_isoseq_polyA) of poly(A) tails
+ - Trimming of poly(A) tails
  - Rapid concatmer [identification](https://github.com/jeffdaily/parasail) and removal
 
 **Input**
@@ -203,34 +203,9 @@ Example invocation:
 
     $ isoseq dedup fltnc.fofn dedup.bam --verbose
 
-## Real-world example
-This is an example of an end-to-end cmd-line-only workflow:
+## Current examples
 
-    # Download HiFi reads
-    $ wget https://downloads.pacbcloud.com/public/dataset/ISMB_workshop/singlecell/ccs.bam
-
-    # Download primers
-    $ wget https://downloads.pacbcloud.com/public/dataset/ISMB_workshop/singlecell/primers.fasta
-
-    # Check lima version to be >= 2.0.0
-    $ lima --version
-    lima 2.0.0 (commit v2.0.0)
-
-    # Check isoseq version to be >= 3.4.0
-    $ isoseq --version
-    isoseq 3.4.0 (commit v3.4.0)
-
-    # Primer removal
-    $ lima --isoseq ccs.bam primers.fasta output.bam
-
-    # Clip UMI and cell barcode
-    $ isoseq tag output.5p--3p.bam flt.bam --design T-8U-12B
-
-    # Remove poly(A) tails and concatemer
-    $ isoseq refine flt.bam primers.fasta fltnc.bam --require-polya
-
-    # Deduplicate transcripts from the identical molecule
-    $ isoseq dedup fltnc.bam dedup.bam --log-level INFO
+For current example datasets and commands, see the [single-cell Iso-Seq examples](https://isoseq.how/umi/examples.html).
 
 ## DISCLAIMER
 

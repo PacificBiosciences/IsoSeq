@@ -8,7 +8,7 @@ nav_order: 3
 
 
 
-## Recommended bulk Iso-Seq workflow
+## Legacy bulk Iso-Seq workflow
 
 | Command | Description | Output format |
 | --- | --- | --- |
@@ -23,6 +23,8 @@ nav_order: 3
 Begin with the [bulk workflow](https://isoseq.how/clustering/) which ends at `isoseq cluster`, then continue to [pigeon workflow](https://isoseq.how/classification/) for transcript mapping, collapse, and classification.
 
 
+
+*Note: Kinnex full-length RNA users are encouraged to try the newly released [Kinnex-IsoSeq-WDL workflow](https://github.com/PacificBiosciences/kinnex-isoseq-wdl) for their analyses.*
 
 ## Recommended single-cell Iso-Seq workflow
 

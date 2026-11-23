@@ -12,8 +12,8 @@ nav_order: 4
     This is a toy dataset consisting of ~80k segmented reads (S-reads) from a Kinnex full-length RNA library. The original HiFi reads have already been segmented using Skera, so we can directly go into primer removal using lima and such.
 
     # Download toy S-read dataset
-    $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/human_80k_Sreads.segmented.bam
-    $ wget https://downloads.pacbcloud.com/public/dataset/IsoSeq_sandbox/human_80k_Sreads.segmented.bam.pbi
+    $ wget https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/DATA-EXAMPLE/human_80k_Sreads.segmented.bam
+    $ wget https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/DATA-EXAMPLE/human_80k_Sreads.segmented.bam.pbi
 
     # Download the Iso-Seq v2 cDNA primers (from Iso-Seq express 2.0 kit)
     $ wget https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/REF-primers/IsoSeq_v2_primers_12.fasta

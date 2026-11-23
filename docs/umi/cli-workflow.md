@@ -115,7 +115,7 @@ If you used more than one SMRT cells, merge all of your `<movie>.fltnc.bam` file
 ## Step 5 - Cell Barcode Correction and Real Cell Identification
 This step identifies cell barcode errors and corrects them. The tool uses a cell barcode whitelist to reassign erroneous barcodes based on edit distance. Additionally, *correct* estimates which reads are likely to originate from a real cell and labels them using the `rc` tag.
 
-Common single-cell whitelists (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/).
+Common single-cell whitelists (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/).
 These are the reverse complement of the 10x single-cell whitelists.
 
 For details on barcode correction, visit the [barcode correction](https://isoseq.how/umi/isoseq-correct.html) page.
@@ -131,7 +131,7 @@ For details on barcode correction, visit the [barcode correction](https://isoseq
 Example:
     $ isoseq correct --barcodes barcode_set.txt fltnc.bam fltnc.corrected.bam
 
-Common single-cell whitelist (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/).
+Common single-cell whitelist (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/).
 
 
 ## Step 6 - Deduplication
