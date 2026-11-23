@@ -7,11 +7,11 @@ nav_order: 9
 
 # Troubleshooting SMRT Link MAS-Seq Single-cell Iso-Seq output
 
-Last Updated: 02/07/2023
+Last Updated: 11/23/2026
 
 This page serves as a supplement guide to troubleshooting SMRT Link Read Segmentation & Single-cell Iso-Seq analysis for using the [MAS-Seq for 10x Single Cell 3' kit](https://www.pacb.com/products-and-services/applications/rna-sequencing/single-cell-rna-sequencing/). Please always refer to [the official SMRT Link documentation](https://www.pacb.com/support/software-downloads/) for the latest documentation. 
 
-MAS-Seq dataset and reference URL: [https://downloads.pacbcloud.com/public/dataset/MAS-Seq/](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/)
+MAS-Seq dataset and reference URL: [https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/](https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/)
 
 ***
 * <a href="#read-segmentation">Read Segmentation output metrics</a>
@@ -86,13 +86,11 @@ The number of estimated cells, mean reads/cell and median UMIs/cell are highly d
 | Issue      |  Likely cause  | Solution | 
 | :------------- |:------------- |:-----|
 | Good concatenation factor<br>Low S-read yield | Low sequencing yield | Additional sequencing |
-| Good S-read yield<br>Poor FLNC yield and beyond | Not using 10x 3' kit (v3.1) | Reanalyze with proper cDNA primer, UMI/BC design, and barcode whitelist [note1] | 
-| Good S-read yield<br>Good cell statistics<br>Poor read  mapping and low gene counts| Wrong reference selected | Choose correct reference genome & annotation [note2] |
+| Good S-read yield<br>Poor FLNC yield and beyond | Not using 10x 3' kit (v3.1) | Reanalyze with proper cDNA primer, UMI/BC design, and barcode whitelist |
+| Good S-read yield<br>Good cell statistics<br>Poor read  mapping and low gene counts| Wrong reference selected | Choose correct reference genome & annotation [note1] |
 | Good S-read yield<br>Poor cell recovery<br> | Algorithm underestimated number of cells | Re-analyze with `percentile` method in SL or command line |
-| `Analysis experienced an error, but was able to recover and complete successfully; High Barcode Errors` | Incorrect barcode whitelist | Re-analyze with correct barcode whitelist [note3] |
+| `Analysis experienced an error, but was able to recover and complete successfully; High Barcode Errors` | Incorrect barcode whitelist | Re-analyze with correct barcode whitelist [note2] |
 
-[note1] Additional 10x cDNA primers and barcode whitelist may be found [here](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/)
+[note1] SMRT Link only supports [human and mouse reference genome + Gencode annotation](https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/REF-pigeon_ref_sets/). If using different genomes, refer to [pigeon documentation](https://isoseq.how/classification/) for command line analysis.
 
-[note2] SMRT Link only supports [human and mouse reference genome + Gencode annotation](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/REF-pigeon_ref_sets/). If using different genomes, refer to [pigeon documentation](https://isoseq.how/classification/) for command line analysis.
-
-[note3] If you see the error message `Analysis experienced an error, but was able to recover and complete successfully; High Barcode Errors` it means the barcode whitelist provided is incorrect. Note that SMRT Link expects a barcode whitelist that is *reverse-complemented*, which is not how the 10x whitelist is typically provided. A list of common barcode whitelist in reverse-complement can be found [here](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/REF-10x_barcodes/).
+[note2] If you see the error message `Analysis experienced an error, but was able to recover and complete successfully; High Barcode Errors` it means the barcode whitelist provided is incorrect. Note that SMRT Link expects a barcode whitelist that is *reverse-complemented*, which is not how the 10x whitelist is typically provided. A list of common barcode whitelist in reverse-complement can be found [here](https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/REF-10x_barcodes/).

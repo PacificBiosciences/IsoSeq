@@ -53,7 +53,7 @@ This provides substantial runtime improvements compared to `isoseq dedup`.
 isoseq correct --barcodes barcodes.txt[.gz] input.bam output.bam
 ```
 
-Common single-cell whitelists (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/).
+Common single-cell whitelists (e.g. 10x whitelist for 3' kit) can be found in the [MAS-Seq dataset](https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/).
 These are the reverse complement of the 10x single-cell whitelists. 
 
 

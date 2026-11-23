@@ -85,7 +85,7 @@ $ isoseq bcstats --json bcstats_report.json -o bcstats_report.tsv <corrected.bam
 Download plotting script and install dependencies:
 ```
 # Download plotting script
-$ wget https://downloads.pacbcloud.com/public/dataset/MAS-Seq/PLOT-scripts/plot_knees.py
+$ wget https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/PLOT-scripts/plot_knees.py
 
 # Install dependencies for plot_knees.py
 $ conda install numpy
