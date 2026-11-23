@@ -11,7 +11,7 @@ Pigeon is designed to work for [Gencode annotation](https://www.gencodegenes.org
 
 The pigeon GTF format requirements are:
 
-A tab-delimited 9-column file [GFF/GTF File Format](https://useast.ensembl.org/info/website/upload/gff.html)
+A tab-delimited 9-column file [GENCODE GTF format](https://www.gencodegenes.org/pages/data_format.html)
 
 * Column 1 must be the chromosome
 * Column 2 is ignored

@@ -72,7 +72,7 @@ Additionally, supplemental reference information can be added to the `classifica
 ```
 pigeon classify <collapsed.sorted.gff> <annotations.gtf> <reference.fa> --cage-peak refTSS.bed --poly-a polyA.list
 ```
-Alternatively use provided reference sets [here](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/REF-pigeon_ref_sets/).
+Alternatively use provided reference sets for [Kinnex single-cell RNA](https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/REF-pigeon_ref_sets/) and [Kinnex full-length RNA](https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/REF-pigeon_ref_sets/).
 
 ```
 pigeon classify <sorted.gff> --ref Human_hg38_Gencode_v39.referenceset.xml

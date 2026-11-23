@@ -36,6 +36,6 @@ nav_order: 4
 | Groups txt file | Groups text file from _isoseq collapse_ |
 
 ### Examples
-Sorted and indexed references for human and mouse can be found [here](https://downloads.pacbcloud.com/public/dataset/MAS-Seq/REF-pigeon_ref_sets/).
+Sorted and indexed references for human and mouse can be found for [Kinnex single-cell RNA](https://downloads.pacbcloud.com/public/dataset/Kinnex-single-cell-RNA/REF-pigeon_ref_sets/) and [Kinnex full-length RNA](https://downloads.pacbcloud.com/public/dataset/Kinnex-full-length-RNA/REF-pigeon_ref_sets/).
 
 Guidance about custom references can be found [here](/classification/pigeon-annotation).
